@@ -128,16 +128,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: df98e523a63859a4b91271a69f8b81b1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df98e523a63859a4b91271a69f8b81b1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df98e523a63859a4b91271a69f8b81b1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df98e523a63859a4b91271a69f8b81b1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.857973
+      value: -4.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df98e523a63859a4b91271a69f8b81b1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 20.78
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df98e523a63859a4b91271a69f8b81b1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.85
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: df98e523a63859a4b91271a69f8b81b1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -166,6 +178,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: df98e523a63859a4b91271a69f8b81b1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: df98e523a63859a4b91271a69f8b81b1, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: df98e523a63859a4b91271a69f8b81b1, type: 3}
       propertyPath: m_CastShadows
@@ -935,7 +951,7 @@ Transform:
   m_GameObject: {fileID: 1939431367}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: -0.307, y: 2.306, z: 0.513}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
