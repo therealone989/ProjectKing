@@ -21,6 +21,7 @@ public class Projectile : MonoBehaviour
         }
 
         Vector3 dir = target.transform.position - transform.position;
+        transform.right = -dir.normalized;
         transform.position += dir.normalized * speed * Time.deltaTime;
 
         if (dir.magnitude < 0.3f)
