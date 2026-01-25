@@ -13,7 +13,7 @@ public class AutoAttack : MonoBehaviour
     int lastAttackTime;
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if(enemiesInRange.Count == 0) return;
         if (Time.time * 1000 - lastAttackTime < cooldownMs) return;
