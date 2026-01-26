@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
 
         if (dir.magnitude < 0.3f)
         {
-            // TAKEDAMAGE ENEMY SCRIPT
+            target.takeDamage(damage);
             Destroy(gameObject);
         }
     }
