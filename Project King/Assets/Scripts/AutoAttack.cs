@@ -37,6 +37,7 @@ public class AutoAttack : MonoBehaviour
         if(other.CompareTag("Enemy") && 
             other.TryGetComponent(out Enemy e))
         {
+            e.OnDeath += RemoveEnemy;
             enemiesInRange.Add(e);
         }
     }
@@ -48,5 +49,10 @@ public class AutoAttack : MonoBehaviour
         {
             enemiesInRange.Remove(e);
         }
+    }
+
+    void RemoveEnemy(Enemy e)
+    {
+        enemiesInRange.Remove(e);
     }
 }
