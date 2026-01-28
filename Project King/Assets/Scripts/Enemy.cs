@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+﻿using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -9,11 +9,26 @@ public class Enemy : MonoBehaviour
     int waypointIndex;
     int moveSpeed = 6;
     int rotationSpeed = 230;
-    float reachDistance = 0.15f;
 
-    int health = 20;
+    [SerializeField] int health = 20;
     public System.Action<Enemy> OnDeath;
     bool isInitialized = false;
+
+    [SerializeField] private Animator animator;
+
+    [Header("Loot")]
+    [SerializeField] private Coin coinPrefab; // <-- Coin Script am Prefab
+    [SerializeField] private int coinCount = 5;
+    [SerializeField] private float spawnHeight = 0.8f;
+
+    [SerializeField] private float scatterRadius = 1.2f; // wie weit landen sie
+    [SerializeField] private float arcHeight = 1.0f;     // Höhe
+    [SerializeField] private float flightTime = 0.22f;   // Speed
+
+    [SerializeField] private LayerMask groundMask = ~0;  // Default: alles
+    [SerializeField] private float deathDespawnDelay = 1.0f;
+    private bool isDying = false;
+
 
     public void Init(Transform[] path, Transform end)
     {
@@ -28,28 +43,33 @@ public class Enemy : MonoBehaviour
         if (!isInitialized) return;
 
         Transform currentTarget = (waypointIndex < WayPoints.Length) ? WayPoints[waypointIndex] : endPoint;
-        Vector3 dir = currentTarget.transform.position - transform.position;
-        //dir.y = 0f;
+
+        Vector3 dir = currentTarget.position - transform.position;
         float dist = dir.magnitude;
 
-        Quaternion targetRotation = Quaternion.LookRotation(dir.normalized, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        Vector3 move = dir.normalized * moveSpeed * Time.deltaTime;
-        transform.position += move;
+        if (dist < 0.00001f) return;
 
-        if (dist <= reachDistance)
+        Vector3 dirN = dir / dist;
+
+        Quaternion targetRotation = Quaternion.LookRotation(dirN, Vector3.up);
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+      
+        float step = moveSpeed * Time.deltaTime;
+
+        if (dist <= step)
         {
-            if(waypointIndex < WayPoints.Length )
-            {
-                waypointIndex++;
-            } else
-            {
-                Destroy(gameObject);
-            }
-            
+            transform.position = currentTarget.position;
+
+            if (waypointIndex < WayPoints.Length) waypointIndex++;
+            else Die();
+
+            return;
         }
 
+        transform.position += dirN * step;
     }
+
 
     public void takeDamage(int dmg)
     {
@@ -62,7 +82,50 @@ public class Enemy : MonoBehaviour
 
     private void Die()
     {
+        if (isDying) return;
+        isDying = true;
+
         OnDeath?.Invoke(this);
-        Destroy(gameObject);
+
+        // Movement stoppen
+        enabled = false;
+
+        // Coins IMMER spawnen
+        SpawnCoins();
+
+        // Animation optional
+        if (animator != null)
+            animator.SetTrigger("Die");
+
+        // Enemy immer despawnen
+        Destroy(gameObject, deathDespawnDelay);
     }
+    private void SpawnCoins()
+    {
+        if (coinPrefab == null || coinCount <= 0) return;
+
+        Vector3 origin = transform.position + Vector3.up * spawnHeight;
+
+        for (int i = 0; i < coinCount; i++)
+        {
+            Vector2 r = Random.insideUnitCircle.normalized;
+            Vector3 offset = new Vector3(r.x, 0f, r.y) * Random.Range(scatterRadius * 0.6f, scatterRadius);
+
+            Vector3 target = origin + offset;
+
+            // Coin zuerst instanziieren (damit wir seine echte Collider-Höhe kennen)
+            Coin c = Instantiate(coinPrefab, origin, Random.rotation);
+
+            // Bodenpunkt finden
+            if (Physics.Raycast(target + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 10f, groundMask))
+            {
+                float halfHeight = c.GetHalfHeight();          // <-- neu
+                float extra = 0.01f;                           // kleiner Luftspalt, damit nix clippt
+                target = hit.point + Vector3.up * (halfHeight + extra);
+            }
+
+            c.Launch(target, flightTime, arcHeight * Random.Range(0.85f, 1.15f));
+        }
+    }
+
 }
