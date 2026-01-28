@@ -17,15 +17,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Animator animator;
 
     [Header("Loot")]
-    [SerializeField] private Coin coinPrefab; // <-- Coin Script am Prefab
+    [SerializeField] private Coin coinPrefab; 
     [SerializeField] private int coinCount = 5;
     [SerializeField] private float spawnHeight = 0.8f;
 
-    [SerializeField] private float scatterRadius = 1.2f; // wie weit landen sie
-    [SerializeField] private float arcHeight = 1.0f;     // Höhe
-    [SerializeField] private float flightTime = 0.22f;   // Speed
+    [SerializeField] private float scatterRadius = 1.2f; 
+    [SerializeField] private float arcHeight = 1.0f;    
+    [SerializeField] private float flightTime = 0.22f;   
 
-    [SerializeField] private LayerMask groundMask = ~0;  // Default: alles
+    [SerializeField] private LayerMask groundMask = ~0;  
     [SerializeField] private float deathDespawnDelay = 1.0f;
     private bool isDying = false;
 
@@ -87,17 +87,17 @@ public class Enemy : MonoBehaviour
 
         OnDeath?.Invoke(this);
 
-        // Movement stoppen
+    
         enabled = false;
 
-        // Coins IMMER spawnen
+      
         SpawnCoins();
 
-        // Animation optional
+    
         if (animator != null)
             animator.SetTrigger("Die");
 
-        // Enemy immer despawnen
+    
         Destroy(gameObject, deathDespawnDelay);
     }
     private void SpawnCoins()
@@ -113,14 +113,13 @@ public class Enemy : MonoBehaviour
 
             Vector3 target = origin + offset;
 
-            // Coin zuerst instanziieren (damit wir seine echte Collider-Höhe kennen)
             Coin c = Instantiate(coinPrefab, origin, Random.rotation);
 
             // Bodenpunkt finden
             if (Physics.Raycast(target + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 10f, groundMask))
             {
-                float halfHeight = c.GetHalfHeight();          // <-- neu
-                float extra = 0.01f;                           // kleiner Luftspalt, damit nix clippt
+                float halfHeight = c.GetHalfHeight();         
+                float extra = 0.01f;                         
                 target = hit.point + Vector3.up * (halfHeight + extra);
             }
 

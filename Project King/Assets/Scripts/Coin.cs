@@ -5,22 +5,41 @@ public class Coin : MonoBehaviour
     [Header("Value")]
     [SerializeField] private int value = 1;
 
-    [Header("Parabola")]
-    [SerializeField] private float flightTime = 0.25f;   // schneller = snappier
-    [SerializeField] private float arcHeight = 1.2f;     // Höhe des Bogens
-    [SerializeField] private float pickupDelay = 0.15f;  // nicht instant einsammeln
+    [Header("Parabola Flight")]
+    [SerializeField] private float flightTime = 0.25f;
+    [SerializeField] private float arcHeight = 1.2f;
+    [SerializeField] private float pickupDelay = 0.15f;
 
-    private bool canPickup = false;
+    [Header("Magnet")]
+    [SerializeField] private float magnetSpeed = 12f;
+    [SerializeField] private float magnetAcceleration = 25f;
+    [SerializeField] private float collectDistance = 0.25f;
 
     [Header("Animation")]
     [SerializeField] private Animator animator;
 
     [Header("Despawn")]
     [SerializeField] private float despawnTime = 20f;
+
+
+    private bool canPickup = false;
+    private bool isFlying = false;
+    private bool isMagneting = false;
+
     private Vector3 startPos;
     private Vector3 targetPos;
     private float t;
-    private bool isFlying = false;
+
+    private Transform magnetTarget;
+    private float currentMagnetSpeed;
+
+    [SerializeField] private Collider solidCollider;
+
+    private void Awake()
+    {
+        if (solidCollider == null)
+            solidCollider = GetComponent<Collider>();
+    }
 
     public void Launch(Vector3 target, float flightTime, float arcHeight)
     {
@@ -30,91 +49,144 @@ public class Coin : MonoBehaviour
         startPos = transform.position;
         targetPos = target;
         t = 0f;
+
         isFlying = true;
+        isMagneting = false;
 
         canPickup = false;
         CancelInvoke(nameof(EnablePickup));
         Invoke(nameof(EnablePickup), pickupDelay);
     }
 
-    // misst die “halbe Höhe” des physischen Colliders am Root
-    public float GetHalfHeight()
+    public void StartMagnet(Transform playerRoot)
     {
-        // Der physische Collider ist bei dir am Root (Münze) und NICHT trigger
-        Collider col = GetComponent<Collider>();
+        if (solidCollider != null)
+            solidCollider.enabled = false;
 
-        if (col != null && !col.isTrigger)
-            return col.bounds.extents.y;
+        if (isMagneting) return;
+        if (!canPickup) return;      
+        if (isFlying) return;          
 
-        // Fallback, falls doch was anders ist:
-        Renderer rend = GetComponentInChildren<Renderer>();
-        if (rend != null) return rend.bounds.extents.y;
+        isMagneting = true;
+        magnetTarget = playerRoot;
+        currentMagnetSpeed = magnetSpeed;
 
-        return 0.05f; // Notfallwert
+    
+        if (animator != null)
+            animator.enabled = false;
+
+
+        transform.rotation = Quaternion.identity;
+
+        CancelInvoke(nameof(Despawn));
     }
 
 
     private void Update()
+    {
+        HandleFlight();
+        HandleMagnet();
+    }
+
+    private void HandleFlight()
     {
         if (!isFlying) return;
 
         t += Time.deltaTime / Mathf.Max(0.0001f, flightTime);
         float u = Mathf.Clamp01(t);
 
-        // Basis-Lerp
         Vector3 pos = Vector3.Lerp(startPos, targetPos, u);
-
-        // Parabel-Offset (0->1->0)
         float h = 4f * u * (1f - u) * arcHeight;
         pos.y += h;
 
         transform.position = pos;
-
-        // optional: spin
         transform.Rotate(0f, 720f * Time.deltaTime, 0f, Space.World);
 
         if (u >= 1f)
-        {
             Land();
+    }
+
+    private void Land()
+    {
+        isFlying = false;
+
+        transform.position = targetPos;
+        transform.rotation = Quaternion.identity;
+
+        if (animator != null)
+        {
+            animator.enabled = true;
+            animator.SetTrigger("Land");
         }
+
+        Invoke(nameof(Despawn), despawnTime);
+    }
+
+
+    private void HandleMagnet()
+    {
+        if (!isMagneting || magnetTarget == null) return;
+
+        Vector3 target = magnetTarget.position + Vector3.up * 1.0f;
+
+        currentMagnetSpeed = Mathf.MoveTowards(
+            currentMagnetSpeed,
+            magnetSpeed * 2.5f,
+            magnetAcceleration * Time.deltaTime
+        );
+
+        transform.position = Vector3.MoveTowards(
+            transform.position,
+            target,
+            currentMagnetSpeed * Time.deltaTime
+        );
+
+        transform.Rotate(0f, 900f * Time.deltaTime, 0f, Space.World);
+
+        if ((transform.position - target).sqrMagnitude <= collectDistance * collectDistance)
+            Collect();
+    }
+
+
+    private void Collect()
+    {
+        PlayerWallet wallet = magnetTarget.GetComponent<PlayerWallet>();
+        if (wallet != null)
+            wallet.Add(value);
+
+        Destroy(gameObject);
     }
 
     private void EnablePickup() => canPickup = true;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!canPickup) return;
+        if (!canPickup || isMagneting) return;
 
-        var wallet = other.GetComponent<PlayerWallet>();
+        PlayerWallet wallet = other.GetComponent<PlayerWallet>();
         if (wallet == null) return;
+
         CancelInvoke(nameof(Despawn));
         wallet.Add(value);
         Destroy(gameObject);
-    }
-    public void Configure(float flightTime, float arcHeight)
-    {
-        this.flightTime = flightTime;
-        this.arcHeight = arcHeight;
-    }
-    private void Land()
-    {
-        isFlying = false;
-
-        // exakte Endposition
-        transform.position = targetPos;
-
-        // Rotation zurücksetzen
-        transform.rotation = Quaternion.identity;
-
-        // Animation abspielen
-        if (animator != null)
-            animator.SetTrigger("Land");
-
-        Invoke(nameof(Despawn), despawnTime);
     }
 
     private void Despawn()
     {
         Destroy(gameObject);
+    }
+
+
+    public float GetHalfHeight()
+    {
+        Collider col = GetComponent<Collider>();
+        if (col != null && !col.isTrigger)
+            return col.bounds.extents.y;
+
+        Renderer rend = GetComponentInChildren<Renderer>();
+        if (rend != null)
+            return rend.bounds.extents.y;
+
+        return 0.05f;
     }
 }

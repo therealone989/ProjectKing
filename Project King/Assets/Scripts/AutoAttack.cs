@@ -1,58 +1,66 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 
 public class AutoAttack : MonoBehaviour
 {
-
     public Transform shootPoint;
     public GameObject arrowPrefab;
     public int damage = 5;
     public int cooldownMs = 500;
 
-    List<Enemy> enemiesInRange = new();
-    int lastAttackTime;
+    private readonly List<Enemy> enemiesInRange = new();
+    private int lastAttackTime;
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if(enemiesInRange.Count == 0) return;
-        if (Time.time * 1000 - lastAttackTime < cooldownMs) return;
+      
+        enemiesInRange.RemoveAll(e => e == null);
+
+        if (enemiesInRange.Count == 0) return;
+        if (Time.time * 1000f - lastAttackTime < cooldownMs) return;
 
         Enemy target = enemiesInRange[0];
         Shoot(target);
-        lastAttackTime = (int)(Time.time * 1000);
-
+        lastAttackTime = (int)(Time.time * 1000f);
     }
 
-    void Shoot(Enemy target)
+    private void Shoot(Enemy target)
     {
-        GameObject proj = Instantiate(arrowPrefab, shootPoint.position, Quaternion.identity);
+        if (target == null) return;
 
-        // Pfeil wird Initialisiert mit unsere Damage werte und unseren Target - > Projectile Script lässt pfeil zum gegner fliegen
+        GameObject proj = Instantiate(arrowPrefab, shootPoint.position, Quaternion.identity);
         proj.GetComponent<Projectile>().Init(target, damage);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Enemy") && 
-            other.TryGetComponent(out Enemy e))
+        if (!other.CompareTag("Enemy")) return;
+
+        if (other.TryGetComponent(out Enemy e))
         {
-            e.OnDeath += RemoveEnemy;
-            enemiesInRange.Add(e);
+            if (!enemiesInRange.Contains(e))
+            {
+                e.OnDeath += RemoveEnemy;
+                enemiesInRange.Add(e);
+            }
         }
     }
 
-    void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy") &&
-            other.TryGetComponent(out Enemy e))
+        if (!other.CompareTag("Enemy")) return;
+
+        if (other.TryGetComponent(out Enemy e))
         {
-            enemiesInRange.Remove(e);
+            RemoveEnemy(e);
         }
     }
 
-    void RemoveEnemy(Enemy e)
+    private void RemoveEnemy(Enemy e)
     {
+        if (e == null) return;
+
+        e.OnDeath -= RemoveEnemy;
         enemiesInRange.Remove(e);
     }
 }
