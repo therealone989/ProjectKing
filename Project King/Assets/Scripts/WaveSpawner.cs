@@ -1,83 +1,45 @@
 ﻿using System.Collections;
 using UnityEngine;
-
-[System.Serializable]
-public class Wave
-{
-    public int count = 10;
-    public float spawnInterval = 0.5f;
-}
-
 public class WaveSpawner : MonoBehaviour
 {
-    [Header("Spawn")]
+    [Header("Enemy")]
     [SerializeField] private Transform startPoint;
-    [SerializeField] private Enemy enemyPrefab;
+    [SerializeField] public Transform enemyPrefab;
     [SerializeField] private Path path;
 
     [Header("Waves")]
-    [SerializeField] private Wave[] waves;
-    [SerializeField] private float timeBetweenWaves = 3f;
-    [SerializeField] private bool autoStart = true;
-
+    public float timeBetweenWaves = 5f;
+    private float countdown = 2f; // Sekunden bist die erste wave gespawnt ist
     private int waveIndex = 0;
-    private int aliveEnemies = 0;
 
-    private bool isSpawning = false;
-
-    private void Start()
+    private void Update()
     {
-        if (autoStart)
-            StartNextWave();
-    }
-
-    public void StartNextWave()
-    {
-        if (isSpawning) return;                 // schützt vor Doppelstart
-        if (waveIndex >= waves.Length) return;  // keine Waves mehr
-
-        StartCoroutine(SpawnWave(waves[waveIndex]));
-    }
-
-    private IEnumerator SpawnWave(Wave wave)
-    {
-        isSpawning = true;
-
-        // Gegner spawnen
-        for (int i = 0; i < wave.count; i++)
+        if (countdown <= 0f)
         {
-            SpawnOneEnemy();
-            yield return new WaitForSeconds(wave.spawnInterval);
+            StartCoroutine(SpawnWave());
+            countdown = timeBetweenWaves;
+            Debug.Log("COUNTDOWN AFTER RESET" + countdown);
         }
+        countdown -= Time.deltaTime;
+        Debug.Log(countdown);
+    }
 
-        // warten bis alle tot / am Ziel sind
-        while (aliveEnemies > 0)
-            yield return null;
-
-        isSpawning = false;
+    IEnumerator SpawnWave()
+    {
         waveIndex++;
-
-        // Pause bis nächste Wave
-        if (waveIndex < waves.Length)
-            yield return new WaitForSeconds(timeBetweenWaves);
-
-        // Auto-Start nächste Wave
-        if (autoStart)
-            StartNextWave();
+        for (int i= 0; i< waveIndex; i++)
+        {
+            SpawnEnemy();
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
-    private void SpawnOneEnemy()
+    void SpawnEnemy()
     {
-        Enemy e = Instantiate(enemyPrefab, startPoint.position, Quaternion.identity);
-        e.Init(path.Waypoints, path.endPoint);
-
-        aliveEnemies++;
-        e.OnDeath += HandleEnemyDeath;
-    }
-
-    private void HandleEnemyDeath(Enemy e)
-    {
-        aliveEnemies--;
-        e.OnDeath -= HandleEnemyDeath;
+        Enemy enemy = Instantiate(
+            enemyPrefab,
+            startPoint.position,
+            startPoint.rotation).GetComponent<Enemy>();
+        enemy.Init(path.Waypoints, path.endPoint);
     }
 }

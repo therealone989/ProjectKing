@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
-    [Header("Loot")]
+    [Header("Loot COIN")]
     [SerializeField] private Coin coinPrefab; 
     [SerializeField] private int coinCount = 5;
     [SerializeField] private float spawnHeight = 0.8f;
@@ -41,35 +41,24 @@ public class Enemy : MonoBehaviour
     private void Update()
     {
         if (!isInitialized) return;
-
         Transform currentTarget = (waypointIndex < WayPoints.Length) ? WayPoints[waypointIndex] : endPoint;
-
+        Debug.Log(currentTarget);
         Vector3 dir = currentTarget.position - transform.position;
-        float dist = dir.magnitude;
+        transform.Translate(dir.normalized * moveSpeed * Time.deltaTime, Space.World);
 
-        if (dist < 0.00001f) return;
-
-        Vector3 dirN = dir / dist;
-
-        Quaternion targetRotation = Quaternion.LookRotation(dirN, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-
-      
-        float step = moveSpeed * Time.deltaTime;
-
-        if (dist <= step)
+        if(Vector3.Distance(transform.position, currentTarget.position) <= 0.2f)
         {
-            transform.position = currentTarget.position;
-
-            if (waypointIndex < WayPoints.Length) waypointIndex++;
-            else Die();
-
-            return;
+            GetNextWaypoint();
         }
-
-        transform.position += dirN * step;
     }
-
+    private void GetNextWaypoint()
+    {
+        if (waypointIndex >= WayPoints.Length)
+        {
+            Die();
+        }
+        waypointIndex++;
+    }
 
     public void takeDamage(int dmg)
     {
