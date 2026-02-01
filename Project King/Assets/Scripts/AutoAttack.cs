@@ -36,7 +36,7 @@ public class AutoAttack : MonoBehaviour
         GameObject bullet = bulletPool.GetObject();
         bullet.transform.position = shootPoint.position;
         bullet.transform.rotation = shootPoint.rotation;
-        bullet.GetComponent<Projectile>().Init(target.GetComponent<Enemy>(), 10, bulletPool);
+        bullet.GetComponent<Projectile>().Init(target.GetComponent<Enemy>(), damage, bulletPool);
     }
 
     private void OnTriggerEnter(Collider other)

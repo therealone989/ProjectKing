@@ -3,29 +3,22 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
     private Transform[] WayPoints;
     private Transform endPoint;
     int waypointIndex;
-    int moveSpeed = 6;
-    int rotationSpeed = 230;
 
+    [Header("Enemy Attributes")]
     [SerializeField] int health = 20;
+    public int moveSpeed = 6;
     public System.Action<Enemy> OnDeath;
     bool isInitialized = false;
 
-    [SerializeField] private Animator animator;
-
-    [Header("Loot COIN")]
-    [SerializeField] private Coin coinPrefab; 
+    [Header("Object Pooling")]
+    [SerializeField] private ObjectPool coinPool;
     [SerializeField] private int coinCount = 5;
-    [SerializeField] private float spawnHeight = 0.8f;
 
-    [SerializeField] private float scatterRadius = 1.2f; 
-    [SerializeField] private float arcHeight = 1.0f;    
-    [SerializeField] private float flightTime = 0.22f;   
-
-    [SerializeField] private LayerMask groundMask = ~0;  
+    [Header("Animation control")]
+    [SerializeField] private Animator animator;
     [SerializeField] private float deathDespawnDelay = 1.0f;
     private bool isDying = false;
 
@@ -36,6 +29,11 @@ public class Enemy : MonoBehaviour
         this.WayPoints = path;
         this.endPoint = end;
         isInitialized = true;
+    }
+
+    private void Start()
+    {
+        coinPool = GameObject.Find("CoinPool").GetComponent<ObjectPool>();
     }
 
     private void Update()
@@ -90,28 +88,13 @@ public class Enemy : MonoBehaviour
     }
     private void SpawnCoins()
     {
-        if (coinPrefab == null || coinCount <= 0) return;
-
-        Vector3 origin = transform.position + Vector3.up * spawnHeight;
-
         for (int i = 0; i < coinCount; i++)
         {
-            Vector2 r = Random.insideUnitCircle.normalized;
-            Vector3 offset = new Vector3(r.x, 0f, r.y) * Random.Range(scatterRadius * 0.6f, scatterRadius);
-
-            Vector3 target = origin + offset;
-
-            Coin c = Instantiate(coinPrefab, origin, Random.rotation);
-
-            // Bodenpunkt finden
-            if (Physics.Raycast(target + Vector3.up * 2f, Vector3.down, out RaycastHit hit, 10f, groundMask))
-            {
-                float halfHeight = c.GetHalfHeight();         
-                float extra = 0.01f;                         
-                target = hit.point + Vector3.up * (halfHeight + extra);
-            }
-
-            c.Launch(target, flightTime, arcHeight * Random.Range(0.85f, 1.15f));
+            GameObject coinGO = coinPool.GetObject();
+            coinGO.transform.position = transform.position + Vector3.up * 0.5f;
+            Debug.Log(coinGO.transform.position);
+            CoinDrop coin = coinGO.GetComponent<CoinDrop>();
+            coin.Init(coinPool);
         }
     }
 
