@@ -163,7 +163,8 @@ public class TowerCannon : MonoBehaviour
 
         var p = proj.GetComponent<Projectile>();
         if (p != null)
-            p.Init(currentTarget, damage);
+            return;
+        //p.Init(currentTarget, damage);
         else
             Debug.LogError("[TowerCannon] Projectile Script fehlt auf projectilePrefab!");
     }

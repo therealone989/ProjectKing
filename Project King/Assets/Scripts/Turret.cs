@@ -5,10 +5,15 @@ public class Turret : MonoBehaviour
 
     public Transform target;
 
+    [Header("Object Pooling")]
+    [SerializeField] ObjectPool bulletPool;
+
     [Header("Attributes")]
     public float range = 15f;
     public float fireRate = 1f;
+    public int damage = 10;
     private float fireCountdown = 0f;
+
 
     [Header("Unity Setup Fields")]
     public string enemyTag = "Enemy";
@@ -18,13 +23,14 @@ public class Turret : MonoBehaviour
 
     public GameObject bulletPrefab;
     public Transform firePoint;
+    private GameObject bullet = null;
 
     // Es wird nicht so oft gecheckt - WENIGER RESSOURCEN VERBRAUCHT
     // Distance checks nimmt power
     // 2 mal die sekunde aufgerufen anstatt 60 oder 200
     void Start()
     {
-        InvokeRepeating("UpdateTarget", 0f, 0.2f);
+        InvokeRepeating("UpdateTarget", 0f, 0.1f);
     }
 
     void UpdateTarget()
@@ -79,11 +85,10 @@ public class Turret : MonoBehaviour
 
     void Shoot()
     {
-        GameObject projGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Projectile projectil = projGO.GetComponent<Projectile>();
-        Enemy e = target.GetComponent<Enemy>(); 
-        if (projectil != null)
-            projectil.Init(e, 10);
+        bullet = bulletPool.GetObject();
+        bullet.transform.position = firePoint.position;
+        bullet.transform.rotation = firePoint.rotation;
+        bullet.GetComponent<Projectile>().Init(target.GetComponent<Enemy>(), damage, bulletPool);
     }
 
     private void OnDrawGizmosSelected()

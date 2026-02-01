@@ -3,11 +3,17 @@ using UnityEngine;
 
 public class AutoAttack : MonoBehaviour
 {
-    public Transform shootPoint;
-    public GameObject arrowPrefab;
+
+    [Header("Object Pooling")]
+    [SerializeField] ObjectPool bulletPool;
+
+    [Header("Attributes")]
     public int damage = 5;
     public int cooldownMs = 500;
 
+    [Header("Unity Setup Fields")]
+    public Transform shootPoint;
+    public GameObject arrowPrefab;
     private readonly List<Enemy> enemiesInRange = new();
     private int lastAttackTime;
 
@@ -27,9 +33,10 @@ public class AutoAttack : MonoBehaviour
     private void Shoot(Enemy target)
     {
         if (target == null) return;
-
-        GameObject proj = (GameObject)Instantiate(arrowPrefab, shootPoint.position, Quaternion.identity);
-        proj.GetComponent<Projectile>().Init(target, damage);
+        GameObject bullet = bulletPool.GetObject();
+        bullet.transform.position = shootPoint.position;
+        bullet.transform.rotation = shootPoint.rotation;
+        bullet.GetComponent<Projectile>().Init(target.GetComponent<Enemy>(), 10, bulletPool);
     }
 
     private void OnTriggerEnter(Collider other)

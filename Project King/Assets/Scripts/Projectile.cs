@@ -2,21 +2,26 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    ObjectPool pool;
     Enemy target;
     int damage;
     public float speed = 10f;
+    bool isInitialized = false;
 
-    public void Init(Enemy e, int dmg)
+    public void Init(Enemy e, int dmg, ObjectPool pool)
     {
         target = e;
         damage = dmg;
+        this.pool = pool;
+        isInitialized = true;
     }
 
     void Update()
     {
+        if (!isInitialized) return;
         if (target == null)
         {
-            Destroy(gameObject);
+            pool.ReturnObject(gameObject);
             return;
         }
 
@@ -27,7 +32,7 @@ public class Projectile : MonoBehaviour
         if (dir.magnitude < 0.3f)
         {
             target.takeDamage(damage);
-            Destroy(gameObject);
+            pool.ReturnObject(gameObject);
         }
     }
 }
