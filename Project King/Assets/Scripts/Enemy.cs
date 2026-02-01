@@ -42,7 +42,6 @@ public class Enemy : MonoBehaviour
     {
         if (!isInitialized) return;
         Transform currentTarget = (waypointIndex < WayPoints.Length) ? WayPoints[waypointIndex] : endPoint;
-        Debug.Log(currentTarget);
         Vector3 dir = currentTarget.position - transform.position;
         transform.Translate(dir.normalized * moveSpeed * Time.deltaTime, Space.World);
 
@@ -73,9 +72,9 @@ public class Enemy : MonoBehaviour
     {
         if (isDying) return;
         isDying = true;
-
+        transform.tag = "Dead";
         OnDeath?.Invoke(this);
-
+        
     
         enabled = false;
 

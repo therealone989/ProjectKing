@@ -18,10 +18,8 @@ public class WaveSpawner : MonoBehaviour
         {
             StartCoroutine(SpawnWave());
             countdown = timeBetweenWaves;
-            Debug.Log("COUNTDOWN AFTER RESET" + countdown);
         }
         countdown -= Time.deltaTime;
-        Debug.Log(countdown);
     }
 
     IEnumerator SpawnWave()

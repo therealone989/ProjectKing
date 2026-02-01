@@ -28,7 +28,7 @@ public class AutoAttack : MonoBehaviour
     {
         if (target == null) return;
 
-        GameObject proj = Instantiate(arrowPrefab, shootPoint.position, Quaternion.identity);
+        GameObject proj = (GameObject)Instantiate(arrowPrefab, shootPoint.position, Quaternion.identity);
         proj.GetComponent<Projectile>().Init(target, damage);
     }
 

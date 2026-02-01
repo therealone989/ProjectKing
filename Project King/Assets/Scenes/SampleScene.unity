@@ -4480,9 +4480,8 @@ GameObject:
   m_Component:
   - component: {fileID: 804299866096322258}
   - component: {fileID: 804299866096322262}
-  - component: {fileID: 804299866096322261}
-  - component: {fileID: 804299866096322260}
   - component: {fileID: 804299866096322259}
+  - component: {fileID: 804299866096322263}
   m_Layer: 0
   m_Name: Kanonenturm
   m_TagString: Untagged
@@ -4676,54 +4675,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &804299866096322260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27763609620749416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 362b864803832804bb470d61da97618c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TowerCannon
-  yawTransform: {fileID: 518335466}
-  pitchTransform: {fileID: 16583443}
-  muzzleTransform: {fileID: 1376473845}
-  projectilePrefab: {fileID: 4019426887150409412, guid: 84698c3ea8b6c634a965f0a26a070ef4, type: 3}
-  damage: 10
-  shotsPerSecond: 1
-  yawSpeed: 360
-  pitchSpeed: 240
-  minPitch: -10
-  maxPitch: 35
-  animator: {fileID: 804299866096322262}
-  fireTrigger: Fire
-  requireAim: 0
-  aimDotThreshold: 0.66
-  aimForward: {fileID: 993193862}
---- !u!135 &804299866096322261
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 27763609620749416}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 8
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &804299866096322262
 Animator:
   serializedVersion: 7
@@ -4746,6 +4697,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &804299866096322263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27763609620749416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac58058888f67dd4baece19b82d9fd15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Turret
+  target: {fileID: 0}
+  range: 15
+  fireRate: 1
+  enemyTag: Enemy
+  partToRotate: {fileID: 518335466}
+  turnSpeed: 10
+  bulletPrefab: {fileID: 4019426887150409412, guid: 84698c3ea8b6c634a965f0a26a070ef4, type: 3}
+  firePoint: {fileID: 1376473845}
 --- !u!33 &841196696447713374
 MeshFilter:
   m_ObjectHideFlags: 0
