@@ -58,7 +58,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 8aaf0309053e37744b019bc20176fad7, type: 2}
-  - {fileID: 1893546337775974636, guid: 929a9869765d71246a615b40406800fb, type: 3}
+  - {fileID: 2100000, guid: ea1cc98b6273a56439eeb47ec758529d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -120,7 +120,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4289835615578609464}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -128,7 +128,7 @@ Transform:
   - {fileID: 5508899867197070620}
   - {fileID: 1223347476953544074}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!95 &2097722770641760322
 Animator:
   serializedVersion: 7
@@ -164,16 +164,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   health: 20
-  animator: {fileID: 2097722770641760322}
-  coinPrefab: {fileID: 3895038863137965227, guid: 560e5d6e8b151f342b8419e7309a51e7, type: 3}
+  moveSpeed: 6
+  coinPool: {fileID: 0}
   coinCount: 5
-  spawnHeight: 1
-  scatterRadius: 3.31
-  arcHeight: 1.9
-  flightTime: 0.4
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
+  animator: {fileID: 2097722770641760322}
   deathDespawnDelay: 1.4
 --- !u!65 &6590364027263416702
 BoxCollider:

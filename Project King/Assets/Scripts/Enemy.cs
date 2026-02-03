@@ -92,7 +92,6 @@ public class Enemy : MonoBehaviour
         {
             GameObject coinGO = coinPool.GetObject();
             coinGO.transform.position = transform.position + Vector3.up * 0.5f;
-            Debug.Log(coinGO.transform.position);
             CoinDrop coin = coinGO.GetComponent<CoinDrop>();
             coin.Init(coinPool);
         }

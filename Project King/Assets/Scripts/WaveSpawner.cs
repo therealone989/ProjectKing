@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using static UnityEngine.AdaptivePerformance.Provider.AdaptivePerformanceSubsystemDescriptor;
 public class WaveSpawner : MonoBehaviour
 {
     [Header("Enemy")]
@@ -11,6 +12,16 @@ public class WaveSpawner : MonoBehaviour
     public float timeBetweenWaves = 5f;
     private float countdown = 2f; // Sekunden bist die erste wave gespawnt ist
     private int waveIndex = 0;
+
+    [Header("Pooling")]
+    [SerializeField] private ObjectPool enemyPool;
+
+
+    private void Start()
+    {
+        enemyPool = GameObject.Find("CoinPool").GetComponent<ObjectPool>();
+    }
+
 
     private void Update()
     {
@@ -34,10 +45,9 @@ public class WaveSpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Enemy enemy = Instantiate(
-            enemyPrefab,
-            startPoint.position,
-            startPoint.rotation).GetComponent<Enemy>();
+        GameObject enemyGO = enemyPool.GetObject();
+        enemyGO.transform.position = startPoint.position;
+        Enemy enemy = enemyGO.GetComponent<Enemy>();
         enemy.Init(path.Waypoints, path.endPoint);
     }
 }
