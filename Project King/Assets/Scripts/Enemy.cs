@@ -1,5 +1,6 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -17,12 +18,28 @@ public class Enemy : MonoBehaviour
     [Header("Object Pooling")]
     [SerializeField] private ObjectPool coinPool;
     [SerializeField] private int coinCount = 5;
+    private ObjectPool myPool;
 
     [Header("Animation control")]
     [SerializeField] private Animator animator;
     [SerializeField] private float deathDespawnDelay = 1.0f;
     private bool isDying = false;
 
+    private void OnEnable()
+    {
+        isDying = false;
+        isInitialized = false;
+        health = 20;
+        waypointIndex = 0;
+
+        if (animator != null)
+            animator.Rebind();
+    }
+
+    public void SetPool(ObjectPool pool)
+    {
+        myPool = pool;
+    }
 
     public void Init(Transform[] path, Transform end)
     {
@@ -78,22 +95,19 @@ public class Enemy : MonoBehaviour
     {
         if (isDying) return;
         isDying = true;
-        transform.tag = "Dead";
-        OnDeath?.Invoke(this);
-        
-    
-        enabled = false;
-
       
         SpawnCoins();
+        WaveSpawner.enemiesAlive--;
 
-    
-        if (animator != null)
-            animator.SetTrigger("Die");
-
-    
-        Destroy(gameObject, deathDespawnDelay);
+        StartCoroutine(ReturnAfterDelay());
     }
+
+    IEnumerator ReturnAfterDelay()
+    {
+        yield return new WaitForSeconds(deathDespawnDelay);
+        myPool.ReturnObject(gameObject);
+    }
+
     private void SpawnCoins()
     {
         for (int i = 0; i < coinCount; i++)
