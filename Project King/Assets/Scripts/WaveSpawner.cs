@@ -19,7 +19,7 @@ public class WaveSpawner : MonoBehaviour
 
     private void Start()
     {
-        enemyPool = GameObject.Find("CoinPool").GetComponent<ObjectPool>();
+        enemyPool = GameObject.Find("EnemyPool").GetComponent<ObjectPool>();
     }
 
 
