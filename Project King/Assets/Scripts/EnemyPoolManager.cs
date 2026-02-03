@@ -13,6 +13,7 @@ public class EnemyPoolManager : MonoBehaviour
     [SerializeField] private Entry[] pools;
 
     private Dictionary<EnemyType, ObjectPool> dict;
+    
 
     private void Awake()
     {

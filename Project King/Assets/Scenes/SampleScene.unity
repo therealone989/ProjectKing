@@ -1553,10 +1553,13 @@ MonoBehaviour:
   path: {fileID: 203618083}
   waves:
   - enemyType: 0
-    count: 5
-    rate: 1
+    count: 3
+    rate: 3
   - enemyType: 0
-    count: 5
+    count: 7
+    rate: 2
+  - enemyType: 0
+    count: 12
     rate: 1
   timeBetweenWaves: 2
   enemyPoolManager: {fileID: 1069374331}
@@ -1574,6 +1577,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyPoolManager
   pools:
   - type: 0
+    pool: {fileID: 1510462724}
+  - type: 1
     pool: {fileID: 1510462724}
 --- !u!1001 &1104610522
 PrefabInstance:

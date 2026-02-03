@@ -46,6 +46,8 @@ public class WaveSpawner : MonoBehaviour
         if (waveIndex == waves.Length)
         {
             // End Level ? Next Scene? TO BE CONTINUED DAMM DAMM 
+            Debug.Log("LEVEL BEENDET lol");
+            this.enabled = false;
         }
     }
 

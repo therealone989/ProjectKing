@@ -29,8 +29,11 @@ public class Enemy : MonoBehaviour
     {
         isDying = false;
         isInitialized = false;
+        enabled = true;
         health = 20;
         waypointIndex = 0;
+
+
 
         if (animator != null)
             animator.Rebind();
@@ -95,16 +98,24 @@ public class Enemy : MonoBehaviour
     {
         if (isDying) return;
         isDying = true;
-      
-        SpawnCoins();
+
+        OnDeath?.Invoke(this); // Turrets Informieren
         WaveSpawner.enemiesAlive--;
 
+        isInitialized = false;
+        enabled = false;
+
+        
+
+        SpawnCoins();
         StartCoroutine(ReturnAfterDelay());
     }
 
     IEnumerator ReturnAfterDelay()
     {
         yield return new WaitForSeconds(deathDespawnDelay);
+
+        OnDeath = null;
         myPool.ReturnObject(gameObject);
     }
 
