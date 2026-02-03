@@ -5,49 +5,61 @@ public class WaveSpawner : MonoBehaviour
 {
     [Header("Enemy")]
     [SerializeField] private Transform startPoint;
-    [SerializeField] public Transform enemyPrefab;
+    
     [SerializeField] private Path path;
 
     [Header("Waves")]
+    public Wave[] waves;
+    public static int enemiesAlive = 0;
     public float timeBetweenWaves = 5f;
     private float countdown = 2f; // Sekunden bist die erste wave gespawnt ist
     private int waveIndex = 0;
 
     [Header("Pooling")]
-    [SerializeField] private ObjectPool enemyPool;
-
-
-    private void Start()
-    {
-        enemyPool = GameObject.Find("EnemyPool").GetComponent<ObjectPool>();
-    }
+    [SerializeField] private EnemyPoolManager enemyPoolManager;
 
 
     private void Update()
     {
+        // Wenn keine Gegner mehr am Leben dann keine Wave mehr - return
+        if( enemiesAlive > 0 ){ return; }
+
         if (countdown <= 0f)
         {
             StartCoroutine(SpawnWave());
             countdown = timeBetweenWaves;
+            return;
         }
         countdown -= Time.deltaTime;
     }
 
     IEnumerator SpawnWave()
     {
-        waveIndex++;
-        for (int i= 0; i< waveIndex; i++)
+        Wave wave = waves[waveIndex];
+        for (int i= 0; i< wave.count; i++)
         {
-            SpawnEnemy();
-            yield return new WaitForSeconds(0.5f);
+            SpawnEnemy(wave.enemyType);
+            yield return new WaitForSeconds(1f / wave.rate);
+        }
+        waveIndex++;
+
+        if (waveIndex == waves.Length)
+        {
+            // End Level ? Next Scene? TO BE CONTINUED DAMM DAMM 
         }
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy(EnemyType type)
     {
-        GameObject enemyGO = enemyPool.GetObject();
+        ObjectPool pool = enemyPoolManager.GetPool(type);
+        GameObject enemyGO = pool.GetObject();
+
         enemyGO.transform.position = startPoint.position;
+
         Enemy enemy = enemyGO.GetComponent<Enemy>();
         enemy.Init(path.Waypoints, path.endPoint);
+        enemy.SetPool(pool);
+
+        WaveSpawner.enemiesAlive++;
     }
 }
