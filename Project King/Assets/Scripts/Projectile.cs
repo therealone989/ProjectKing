@@ -19,7 +19,7 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         if (!isInitialized) return;
-        if (target == null)
+        if (target == null || !target.IsAlive)
         {
             pool.ReturnObject(gameObject);
             return;

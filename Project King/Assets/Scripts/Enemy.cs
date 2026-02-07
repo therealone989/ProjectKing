@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public float turnSpeed = 10f;
     public System.Action<Enemy> OnDeath;
     bool isInitialized = false;
+    public bool IsAlive { get; private set; }
 
     [Header("Object Pooling")]
     [SerializeField] private ObjectPool coinPool;
@@ -27,13 +28,12 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
+        IsAlive = true; // Für autoattack.cs damit er nicht in die leere schießt
         isDying = false;
         isInitialized = false;
         enabled = true;
         health = 20;
         waypointIndex = 0;
-
-
 
         if (animator != null)
             animator.Rebind();
@@ -102,10 +102,10 @@ public class Enemy : MonoBehaviour
         OnDeath?.Invoke(this); // Turrets Informieren
         WaveSpawner.enemiesAlive--;
 
+        IsAlive = false;
         isInitialized = false;
-        enabled = false;
 
-        
+        //enabled = false;
 
         SpawnCoins();
         StartCoroutine(ReturnAfterDelay());

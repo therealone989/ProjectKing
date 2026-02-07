@@ -20,7 +20,7 @@ public class AutoAttack : MonoBehaviour
     private void FixedUpdate()
     {
       
-        enemiesInRange.RemoveAll(e => e == null);
+        enemiesInRange.RemoveAll(e => e == null || !e.IsAlive);
 
         if (enemiesInRange.Count == 0) return;
         if (Time.time * 1000f - lastAttackTime < cooldownMs) return;

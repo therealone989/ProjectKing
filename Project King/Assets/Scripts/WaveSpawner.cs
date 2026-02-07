@@ -18,15 +18,17 @@ public class WaveSpawner : MonoBehaviour
     [Header("Pooling")]
     [SerializeField] private EnemyPoolManager enemyPoolManager;
 
+    private bool isSpawning = false;
 
     private void Update()
     {
         // Wenn keine Gegner mehr am Leben dann keine Wave mehr - return
-        if( enemiesAlive > 0 ){ return; }
+        if( enemiesAlive > 0 || isSpawning) { return; }
 
         if (countdown <= 0f)
         {
             StartCoroutine(SpawnWave());
+            isSpawning = true;
             countdown = timeBetweenWaves;
             return;
         }
@@ -35,6 +37,7 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
+        Debug.Log(waveIndex);
         Wave wave = waves[waveIndex];
         for (int i= 0; i< wave.count; i++)
         {
@@ -42,6 +45,7 @@ public class WaveSpawner : MonoBehaviour
             yield return new WaitForSeconds(1f / wave.rate);
         }
         waveIndex++;
+        isSpawning = false;
 
         if (waveIndex == waves.Length)
         {

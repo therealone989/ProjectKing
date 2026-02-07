@@ -1203,83 +1203,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 203618082}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!1001 &940626400
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 205
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 205
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 205
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 7.5
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.0000038146973
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 14.18
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071067
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -7511558181221131132, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
-      propertyPath: m_Name
-      value: Bogenturm
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e74b85a86b996a1408ee38b369a67507, type: 3}
 --- !u!1 &973949050
 GameObject:
   m_ObjectHideFlags: 0
@@ -1556,7 +1479,7 @@ MonoBehaviour:
     count: 3
     rate: 3
   - enemyType: 0
-    count: 7
+    count: 4
     rate: 2
   - enemyType: 0
     count: 12
@@ -2661,7 +2584,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 4.27
+  m_Radius: 7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1939431377
 MonoBehaviour:
@@ -2676,7 +2599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AutoAttack
   bulletPool: {fileID: 1467216114}
-  damage: 10
+  damage: 20
   cooldownMs: 1000
   shootPoint: {fileID: 1939431371}
   arrowPrefab: {fileID: 2648060429669207570, guid: 097be07269ca5c6439928a42776f9a43, type: 3}
@@ -3015,11 +2938,76 @@ PrefabInstance:
       propertyPath: m_Name
       value: Kanonenturm
       objectReference: {fileID: 0}
+    - target: {fileID: 5038444888021718343, guid: da4443431cbd3924eaf7228b28334d36, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da4443431cbd3924eaf7228b28334d36, type: 3}
+--- !u!1001 &6339980781771140866
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6032651372749111198, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6032651372749111198, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0000038146973
+      objectReference: {fileID: 0}
+    - target: {fileID: 6032651372749111198, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 17.53
+      objectReference: {fileID: 0}
+    - target: {fileID: 6032651372749111198, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 6032651372749111198, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6032651372749111198, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6032651372749111198, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6032651372749111198, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6032651372749111198, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6032651372749111198, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409634759245030692, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: m_Name
+      value: Bogenturm
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245702419381680910, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
+      propertyPath: bulletPool
+      value: 
+      objectReference: {fileID: 1467216114}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4e659803f6be46f4cbe54eb85648b8f1, type: 3}
 --- !u!1001 &6657290558653011745
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3090,7 +3078,7 @@ SceneRoots:
   - {fileID: 1939431371}
   - {fileID: 1572139777}
   - {fileID: 1104610522}
-  - {fileID: 940626400}
+  - {fileID: 6339980781771140866}
   - {fileID: 3466762265905941805}
   - {fileID: 591986544}
   - {fileID: 582866224}
