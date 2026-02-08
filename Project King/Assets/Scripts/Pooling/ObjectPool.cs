@@ -13,11 +13,11 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < prewarmCount; i++)
         {
-            CreateBullet();
+            CreateObject();
         }
     }
 
-    GameObject CreateBullet()
+    GameObject CreateObject()
     {
         GameObject obj = Instantiate(prefab, transform);
         obj.SetActive(false);
@@ -29,7 +29,7 @@ public class ObjectPool : MonoBehaviour
     {
         if (pool.Count == 0)
         {
-            CreateBullet();
+            CreateObject();
         }
         GameObject obj = pool.Dequeue();
         obj.SetActive(true);

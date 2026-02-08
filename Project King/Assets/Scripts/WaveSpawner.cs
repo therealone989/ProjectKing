@@ -17,6 +17,8 @@ public class WaveSpawner : MonoBehaviour
 
     [Header("Pooling")]
     [SerializeField] private EnemyPoolManager enemyPoolManager;
+    [SerializeField] private ObjectPool coinPool;
+    [SerializeField] private ObjectPool healthBarPool;
 
     private bool isSpawning = false;
 
@@ -59,12 +61,17 @@ public class WaveSpawner : MonoBehaviour
     {
         ObjectPool pool = enemyPoolManager.GetPool(type);
         GameObject enemyGO = pool.GetObject();
+        Enemy enemy = enemyGO.GetComponent<Enemy>();
 
+        // 1. Abhängigkeiten injizieren
+        enemy.InjectPools(coinPool, healthBarPool);
+        enemy.SetPool(pool);
+
+        // 2. Position setzen
         enemyGO.transform.position = startPoint.position;
 
-        Enemy enemy = enemyGO.GetComponent<Enemy>();
-        enemy.Init(path.Waypoints, path.endPoint);
-        enemy.SetPool(pool);
+        // 3. Jetzt erst die Logik starten, die die Healthbar braucht!
+        enemy.ActivateEnemy(path.Waypoints, path.endPoint);
 
         WaveSpawner.enemiesAlive++;
     }
