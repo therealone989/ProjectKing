@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
     int waypointIndex;
 
     [Header("Enemy Attributes")]
-    [SerializeField] int health = 20;
+    [SerializeField] int health, maxHealth = 20;
     public int moveSpeed = 6;
     public float turnSpeed = 10f;
     public System.Action<Enemy> OnDeath;
@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Object Pooling")]
     [SerializeField] private ObjectPool coinPool;
+    [SerializeField] private ObjectPool healthBarPool;
     [SerializeField] private int coinCount = 5;
     private ObjectPool myPool;
 
@@ -26,41 +27,54 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float deathDespawnDelay = 1.0f;
     private bool isDying = false;
 
+    private FloatingHealthbar healthBar;
+    
     private void OnEnable()
     {
-        IsAlive = true; // Für autoattack.cs damit er nicht in die leere schießt
+        IsAlive = true;
         isDying = false;
         isInitialized = false;
-        enabled = true;
-        health = 20;
-        waypointIndex = 0;
+        // Wir machen hier KEIN GetObject für die Healthbar mehr!
 
         if (animator != null)
             animator.Rebind();
     }
+    public void ActivateEnemy(Transform[] path, Transform end)
+    {
+        // Erst hier initialisieren wir die Logik, die die Pools braucht
+        if (healthBarPool != null)
+        {
+            healthBar = healthBarPool.GetObject().GetComponent<FloatingHealthbar>();
+            healthBar.Init(transform);
+            health = maxHealth;
+            healthBar.UpdateHealthBar(health, maxHealth);
+        }
+        else{Debug.LogError("HealthBarPool ist null beim Aktivieren!");}
 
+        this.WayPoints = path;
+        this.endPoint = end;
+        this.health = maxHealth; // Reset health
+        this.waypointIndex = 0;
+        this.isInitialized = true;
+    }
     public void SetPool(ObjectPool pool)
     {
         myPool = pool;
     }
-
-    public void Init(Transform[] path, Transform end)
+    public void InjectPools(ObjectPool coinPool, ObjectPool healthBarPool)
     {
-        waypointIndex = 0;
-        this.WayPoints = path;
-        this.endPoint = end;
-        isInitialized = true;
-    }
-
-    private void Start()
-    {
-        coinPool = GameObject.Find("CoinPool").GetComponent<ObjectPool>();
+        this.coinPool = coinPool;
+        this.healthBarPool = healthBarPool;
     }
 
     private void Update()
     {
         if (!isInitialized) return;
+        MoveEnemy();
 
+    }
+    private void MoveEnemy()
+    {
         // MOOVING STARTED
         Transform currentTarget = (waypointIndex < WayPoints.Length) ? WayPoints[waypointIndex] : endPoint;
         Vector3 dir = currentTarget.position - transform.position;
@@ -84,41 +98,50 @@ public class Enemy : MonoBehaviour
         }
         waypointIndex++;
     }
-
     public void takeDamage(int dmg)
     {
+        if (!IsAlive) return;
+        if (healthBar == null) return;
+
         health = health - dmg;
+        healthBar.UpdateHealthBar(health, maxHealth);
         if(health <= 0)
         {
             Die();
         }
     }
-
     private void Die()
     {
         if (isDying) return;
         isDying = true;
 
-        OnDeath?.Invoke(this); // Turrets Informieren
-        WaveSpawner.enemiesAlive--;
-
         IsAlive = false;
         isInitialized = false;
 
+        OnDeath?.Invoke(this); // Turrets Informieren
+        WaveSpawner.enemiesAlive--;
+
+        if (healthBar != null)
+        {
+            healthBarPool.ReturnObject(healthBar.gameObject);
+            healthBar = null;
+        }
         //enabled = false;
 
         SpawnCoins();
         StartCoroutine(ReturnAfterDelay());
     }
-
     IEnumerator ReturnAfterDelay()
     {
         yield return new WaitForSeconds(deathDespawnDelay);
 
         OnDeath = null;
-        myPool.ReturnObject(gameObject);
-    }
 
+        if (myPool != null)
+            myPool.ReturnObject(gameObject);
+        else
+            gameObject.SetActive(false); // Fallback
+    }
     private void SpawnCoins()
     {
         for (int i = 0; i < coinCount; i++)
@@ -128,6 +151,10 @@ public class Enemy : MonoBehaviour
             CoinDrop coin = coinGO.GetComponent<CoinDrop>();
             coin.Init(coinPool);
         }
+    }
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
 }
