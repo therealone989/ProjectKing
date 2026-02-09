@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
         isInitialized = true;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (!isInitialized) return;
         if (target == null || !target.IsAlive)
@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
 
         Vector3 dir = target.transform.position - transform.position;
         transform.right = -dir.normalized;
-        transform.position += dir.normalized * speed * Time.deltaTime;
+        transform.position += dir.normalized * speed * Time.fixedDeltaTime;
 
         if (dir.magnitude < 0.3f)
         {

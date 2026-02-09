@@ -78,11 +78,11 @@ public class Enemy : MonoBehaviour
         // MOOVING STARTED
         Transform currentTarget = (waypointIndex < WayPoints.Length) ? WayPoints[waypointIndex] : endPoint;
         Vector3 dir = currentTarget.position - transform.position;
-        transform.Translate(dir.normalized * moveSpeed * Time.deltaTime, Space.World);
+        transform.Translate(dir.normalized * moveSpeed * Time.fixedDeltaTime, Space.World);
 
         // ROTATING STARTED
         Quaternion lookRotation = Quaternion.LookRotation(dir);
-        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
+        Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.fixedDeltaTime * turnSpeed).eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
         if (Vector3.Distance(transform.position, currentTarget.position) <= 0.2f)

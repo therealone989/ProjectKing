@@ -2631,6 +2631,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5244098160238640477, guid: d36c9f79a0a037a408015ee35c98e834, type: 3}
+      propertyPath: moveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6199119629254689962, guid: d36c9f79a0a037a408015ee35c98e834, type: 3}
+      propertyPath: m_Interpolate
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6210509331455816429, guid: d36c9f79a0a037a408015ee35c98e834, type: 3}
       propertyPath: damage
       value: 2

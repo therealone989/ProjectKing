@@ -25,7 +25,7 @@ public class PlayerMove : MonoBehaviour
             dir.Normalize();
 
 
-        Vector3 targetpos = rb.position + dir * moveSpeed * Time.deltaTime;
+        Vector3 targetpos = rb.position + dir * moveSpeed * Time.fixedDeltaTime;
         rb.MovePosition(targetpos);
 
         if (dir.sqrMagnitude > 0.0001f)
