@@ -36,7 +36,7 @@ public class CoinDrop : MonoBehaviour
         targetOffset = new Vector3(rand.x, 0.2f, rand.y);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (flyingToPlayer)
         {
@@ -45,7 +45,7 @@ public class CoinDrop : MonoBehaviour
             transform.position = Vector3.MoveTowards(
                 transform.position,
                 targetPos,
-                Time.deltaTime * 10f
+                Time.fixedDeltaTime * 10f
             );
             if (Vector3.Distance(transform.position, player.position) < 1.2f)
             {
@@ -56,14 +56,14 @@ public class CoinDrop : MonoBehaviour
         }
 
         // sanfte Wurfbewegung
-        timer += Time.deltaTime;
+        timer += Time.fixedDeltaTime;
         float t = Mathf.Clamp01(timer / 0.4f);
 
         Vector3 arc = Vector3.up * Mathf.Sin(t * Mathf.PI) * 0.2f;
         transform.position = startPos + Vector3.Lerp(Vector3.zero, targetOffset, t) + arc;
 
         // Rotation
-        transform.Rotate(Vector3.up, 100f * Time.deltaTime);
+        transform.Rotate(Vector3.up, 100f * Time.fixedDeltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
