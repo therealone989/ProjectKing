@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
         this.healthBarPool = healthBarPool;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!isInitialized) return;
         MoveEnemy();

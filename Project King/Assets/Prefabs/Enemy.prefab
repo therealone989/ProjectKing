@@ -172,7 +172,6 @@ MonoBehaviour:
   coinCount: 5
   animator: {fileID: 2097722770641760322}
   deathDespawnDelay: 1.4
-  healthBar: {fileID: 0}
 --- !u!65 &6590364027263416702
 BoxCollider:
   m_ObjectHideFlags: 0
