@@ -1543,6 +1543,7 @@ GameObject:
   - component: {fileID: 1069374329}
   - component: {fileID: 1069374330}
   - component: {fileID: 1069374331}
+  - component: {fileID: 1069374332}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1589,7 +1590,13 @@ MonoBehaviour:
   - enemyType: 0
     count: 12
     rate: 1
-  timeBetweenWaves: 2
+  - enemyType: 0
+    count: 16
+    rate: 3
+  - enemyType: 0
+    count: 13
+    rate: 1.2
+  timeBetweenWaves: 3
   enemyPoolManager: {fileID: 1069374331}
   coinPool: {fileID: 252960294}
   healthBarPool: {fileID: 731549274}
@@ -1610,6 +1617,18 @@ MonoBehaviour:
     pool: {fileID: 1510462724}
   - type: 1
     pool: {fileID: 1510462724}
+--- !u!114 &1069374332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069374328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61723a823f6f6d149a11d8d59598d0b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1001 &1104610522
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2630,18 +2649,6 @@ PrefabInstance:
     - target: {fileID: 972377868956782084, guid: d36c9f79a0a037a408015ee35c98e834, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5244098160238640477, guid: d36c9f79a0a037a408015ee35c98e834, type: 3}
-      propertyPath: moveSpeed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6199119629254689962, guid: d36c9f79a0a037a408015ee35c98e834, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6210509331455816429, guid: d36c9f79a0a037a408015ee35c98e834, type: 3}
-      propertyPath: damage
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6210509331455816429, guid: d36c9f79a0a037a408015ee35c98e834, type: 3}
       propertyPath: bulletPool
