@@ -13,6 +13,8 @@ public class CoinDrop : MonoBehaviour
     bool flyingToPlayer = false;
     Transform player;
 
+    private bool isPickedUp = false;
+
     private void OnEnable()
     {
         flyingToPlayer = false;
@@ -49,6 +51,7 @@ public class CoinDrop : MonoBehaviour
             );
             if (Vector3.Distance(transform.position, player.position) < 1.2f)
             {
+                isPickedUp = false;
                 pool.ReturnObject(gameObject);
             }
 
@@ -68,7 +71,9 @@ public class CoinDrop : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isPickedUp) return;
         if (!other.CompareTag("Player")) return;
+        isPickedUp = true;
         PlayerWallet wallet = other.GetComponent<PlayerWallet>();
         wallet.Add(1);
         player = other.transform;
