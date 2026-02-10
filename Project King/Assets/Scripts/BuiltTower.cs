@@ -41,21 +41,35 @@ public class BuiltTower : MonoBehaviour
     public void PlaceCanon()
     {
         Debug.Log("Place Canon!");
+        ExitMenu();
     }
     public void PlaceArcher()
     {
         Debug.Log("Place Archer!");
+        ExitMenu();
     }
     public void PlaceWizard()
     {
         Debug.Log("Place Wizard!");
+        ExitMenu();
     }
     public void PlaceTroops()
     {
         Debug.Log("Place Troops!");
+        ExitMenu();
     }
     public void ActivateBuildPanel()
     {
         buildPanel.SetActive(true);
+        button.enabled = false;
+        newColor = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        button.image.color = newColor;
+    }
+    public void ExitMenu()
+    {
+        buildPanel.SetActive(false);
+        button.enabled = true;
+        newColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        button.image.color = newColor;
     }
 }

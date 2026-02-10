@@ -2255,7 +2255,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1069374328}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 61723a823f6f6d149a11d8d59598d0b8, type: 3}
   m_Name: 
@@ -2341,7 +2341,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1098222672}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1939431381}
+        m_TargetAssemblyTypeName: BuiltTower, Assembly-CSharp
+        m_MethodName: ExitMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1098222672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4610,13 +4622,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 922146675094694042, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 922146675094694042, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.0990566
+      objectReference: {fileID: 0}
+    - target: {fileID: 922146675094694042, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.8498429
+      objectReference: {fileID: 0}
     - target: {fileID: 1821215836180161366, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
       propertyPath: m_Name
       value: Magierprojektil
       objectReference: {fileID: 0}
     - target: {fileID: 1865266963758146665, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.706
+      value: -3.114
       objectReference: {fileID: 0}
     - target: {fileID: 1865266963758146665, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4624,7 +4648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1865266963758146665, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.73222
+      value: 5.259
       objectReference: {fileID: 0}
     - target: {fileID: 1865266963758146665, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4653,6 +4677,18 @@ PrefabInstance:
     - target: {fileID: 1865266963758146665, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633409463261822990, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633409463261822990, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.023584902
+      objectReference: {fileID: 0}
+    - target: {fileID: 7633409463261822990, guid: bf45188ca446f7f488d3a426194dba82, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.8705955
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
