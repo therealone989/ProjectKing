@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour
         transform.right = -dir.normalized;
         transform.position += dir.normalized * speed * Time.fixedDeltaTime;
 
-        if (dir.magnitude < 0.3f)
+        if ((target.transform.position - transform.position).sqrMagnitude < 0.09f)
         {
             target.takeDamage(damage);
             pool.ReturnObject(gameObject);
