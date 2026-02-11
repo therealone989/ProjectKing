@@ -786,12 +786,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1939431381}
         m_TargetAssemblyTypeName: BuiltTower, Assembly-CSharp
-        m_MethodName: PlaceArcher
-        m_Mode: 1
+        m_MethodName: PlaceTower
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2864,12 +2864,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1939431381}
         m_TargetAssemblyTypeName: BuiltTower, Assembly-CSharp
-        m_MethodName: PlaceWizard
-        m_Mode: 1
+        m_MethodName: PlaceTower
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -3571,8 +3571,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1939431381}
         m_TargetAssemblyTypeName: BuiltTower, Assembly-CSharp
-        m_MethodName: PlaceCanon
-        m_Mode: 1
+        m_MethodName: PlaceTower
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3923,12 +3923,12 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1939431381}
         m_TargetAssemblyTypeName: BuiltTower, Assembly-CSharp
-        m_MethodName: PlaceTroops
-        m_Mode: 1
+        m_MethodName: PlaceTower
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4094,6 +4094,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuiltTower
   button: {fileID: 1734640314}
   buildPanel: {fileID: 1286022526}
+  canonPrefab: {fileID: 5036086174434419430, guid: ebf9e6177fd9d73449c5719b870c4a76, type: 3}
+  archerPrefab: {fileID: 2511486661958984515, guid: 40a159641883ad74b843f13738b31a19, type: 3}
+  wizardPrefab: {fileID: 1928420098060921442, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+  troopsPrefab: {fileID: 0}
 --- !u!1 &1994630995
 GameObject:
   m_ObjectHideFlags: 0
