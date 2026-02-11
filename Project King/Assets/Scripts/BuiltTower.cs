@@ -95,6 +95,8 @@ public class BuiltTower : MonoBehaviour
     public void SpawnTower(GameObject towerPrefab)
     {
         Instantiate(towerPrefab,currentBuildSpot.transform.position, currentBuildSpot.transform.rotation);
+
+        currentBuildSpot.SetActive(false);
     }
     public void ExitMenu()
     {
