@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &112026953662868303
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 714973015877717201}
+  m_Layer: 0
+  m_Name: BuildSensor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &714973015877717201
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 112026953662868303}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 972377868956782084}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8501299873675087844
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,10 +45,10 @@ GameObject:
   - component: {fileID: 6130590466827790543}
   - component: {fileID: 3996265019208316389}
   - component: {fileID: 6199119629254689962}
-  - component: {fileID: 5053075887169183875}
   - component: {fileID: 6210509331455816429}
   - component: {fileID: 5244098160238640477}
   - component: {fileID: 6908600446449171915}
+  - component: {fileID: 5221206414991650125}
   m_Layer: 0
   m_Name: King(Player)
   m_TagString: Player
@@ -37,7 +68,8 @@ Transform:
   m_LocalPosition: {x: -13.46, y: 1, z: 17.88}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 714973015877717201}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4196626158115308749
@@ -192,27 +224,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!135 &5053075887169183875
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8501299873675087844}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 7
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6210509331455816429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,3 +267,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f683aea2ced66e4bbcdf3e0561d3e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWallet
+--- !u!114 &5221206414991650125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8501299873675087844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 345c26b51d28b1043b96f42e5e4d8465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuiltTower
+  buildRange: 2
+  button: {fileID: 0}
+  buildPanel: {fileID: 0}
+  canonPrefab: {fileID: 5036086174434419430, guid: ebf9e6177fd9d73449c5719b870c4a76, type: 3}
+  archerPrefab: {fileID: 2511486661958984515, guid: 40a159641883ad74b843f13738b31a19, type: 3}
+  wizardPrefab: {fileID: 1928420098060921442, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+  troopsPrefab: {fileID: 919132149155446097, guid: 4f2fcb3d84f8be843808f9f649c40d93, type: 3}

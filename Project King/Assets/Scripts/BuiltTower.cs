@@ -1,10 +1,12 @@
-﻿using NUnit.Framework;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.UI;
 
 public class BuiltTower : MonoBehaviour
 {
+    [Header("SensorSettings")]
+    [SerializeField] float buildRange = 7f;
+
     [Header("Colors")] 
     Color activeColor = new Color(1.0f,1.0f, 1.0f, 1.0f);
     Color inactiveColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
@@ -23,23 +25,38 @@ public class BuiltTower : MonoBehaviour
     public GameObject wizardPrefab;
     public GameObject troopsPrefab;
     public enum TowerType{Cannon,Archer,Wizard,Troops}
+
     void Start()
     {
         SetButtonState(false, inactiveColor);
         buildPanel.SetActive(false);
     }
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.gameObject.tag == "Buildspot")
+        if(Time.frameCount % 10 == 0)
         {
-            SetButtonState(true, activeColor);
-            currentBuildSpot = other.gameObject;
+            CheckForBuildSpot();
         }
     }
-    private void OnTriggerExit(Collider other)
+    void CheckForBuildSpot()
     {
-        if (other.gameObject.tag == "Buildspot")
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, buildRange);
+        bool spotFound = false;
+
+        foreach(var hitCollider in hitColliders)
         {
+            if (hitCollider.CompareTag("Buildspot"))
+            {
+                currentBuildSpot = hitCollider.gameObject;
+                SetButtonState(true, activeColor);
+                spotFound = true;
+                break;
+            }
+        }
+
+        if(!spotFound && currentBuildSpot != null)
+        {
+            currentBuildSpot = null;
             SetButtonState(false, inactiveColor);
         }
     }
@@ -56,24 +73,19 @@ public class BuiltTower : MonoBehaviour
     public void PlaceTower(int towerIndex)
     {
         TowerType selectedTower = (TowerType)towerIndex;
-        Debug.Log("Gewaehlter Tower: " + selectedTower);
         switch (selectedTower)
         {
             case TowerType.Cannon:
-                Debug.Log("Kanone wird gebaut!");
                 SpawnTower(canonPrefab);
                 break;
             case TowerType.Archer:
-                Debug.Log("Archer wird gebaut!");
                 SpawnTower(archerPrefab);
                 break;
             case TowerType.Wizard:
                 SpawnTower(wizardPrefab);
-                Debug.Log("Wizard wird gebaut!");
                 break;
             case TowerType.Troops:
                 SpawnTower(troopsPrefab);
-                Debug.Log("Troops wird gebaut!");
                 break;
             default:
                 break;

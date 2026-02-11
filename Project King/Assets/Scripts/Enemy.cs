@@ -71,7 +71,6 @@ public class Enemy : MonoBehaviour
     {
         if (!isInitialized) return;
         MoveEnemy();
-
     }
     private void MoveEnemy()
     {
