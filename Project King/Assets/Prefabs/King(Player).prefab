@@ -280,6 +280,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuiltTower
   buildRange: 2
+  buildLayer:
+    serializedVersion: 2
+    m_Bits: 256
   button: {fileID: 0}
   buildPanel: {fileID: 0}
   canonPrefab: {fileID: 5036086174434419430, guid: ebf9e6177fd9d73449c5719b870c4a76, type: 3}

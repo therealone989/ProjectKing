@@ -6,6 +6,7 @@ public class BuiltTower : MonoBehaviour
 {
     [Header("SensorSettings")]
     [SerializeField] float buildRange = 7f;
+    [SerializeField] LayerMask buildLayer;
 
     [Header("Colors")] 
     Color activeColor = new Color(1.0f,1.0f, 1.0f, 1.0f);
@@ -16,15 +17,15 @@ public class BuiltTower : MonoBehaviour
     public Button button;
     public GameObject buildPanel;
 
-    [Header("Tower References")]
-    private GameObject currentBuildSpot;
-
     [Header("Tower Prefabs")]
     public GameObject canonPrefab;
     public GameObject archerPrefab;
     public GameObject wizardPrefab;
     public GameObject troopsPrefab;
+
+    private GameObject currentBuildSpot;
     public enum TowerType{Cannon,Archer,Wizard,Troops}
+    private Collider[] hitResults = new Collider[5]; // Speicher-Reservierung für NonAlloc
 
     void Start()
     {
@@ -40,7 +41,23 @@ public class BuiltTower : MonoBehaviour
     }
     void CheckForBuildSpot()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, buildRange);
+        // NonAlloc reserviert keinen neuen Speicher pro Frame!
+        int hitCount = Physics.OverlapSphereNonAlloc(transform.position, buildRange, hitResults, buildLayer);
+
+        GameObject nearestSpot = null;
+        float shortestDistance = Mathf.Infinity;
+
+        for (int i = 0; i < hitCount; i++)
+        {
+            float distance = Vector3.Distance(transform.position, hitResults[i].transform.position);
+            if(distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                nearestSpot = hitResults[i].gameObject;
+            }
+        }
+
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, buildRange, buildLayer);
         bool spotFound = false;
 
         foreach(var hitCollider in hitColliders)
@@ -75,20 +92,11 @@ public class BuiltTower : MonoBehaviour
         TowerType selectedTower = (TowerType)towerIndex;
         switch (selectedTower)
         {
-            case TowerType.Cannon:
-                SpawnTower(canonPrefab);
-                break;
-            case TowerType.Archer:
-                SpawnTower(archerPrefab);
-                break;
-            case TowerType.Wizard:
-                SpawnTower(wizardPrefab);
-                break;
-            case TowerType.Troops:
-                SpawnTower(troopsPrefab);
-                break;
-            default:
-                break;
+            case TowerType.Cannon:SpawnTower(canonPrefab);break;
+            case TowerType.Archer:SpawnTower(archerPrefab);break;
+            case TowerType.Wizard:SpawnTower(wizardPrefab);break;
+            case TowerType.Troops:SpawnTower(troopsPrefab);break;
+            default:break;
         }
         ExitMenu();
     }
