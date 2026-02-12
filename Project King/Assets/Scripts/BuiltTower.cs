@@ -41,12 +41,13 @@ public class BuiltTower : MonoBehaviour
     }
     void CheckForBuildSpot()
     {
-        // NonAlloc reserviert keinen neuen Speicher pro Frame!
+        // 1. Nur EINE Abfrage ohne neuen Speicher (NonAlloc)
         int hitCount = Physics.OverlapSphereNonAlloc(transform.position, buildRange, hitResults, buildLayer);
 
         GameObject nearestSpot = null;
         float shortestDistance = Mathf.Infinity;
 
+        // 2. Den mathematisch nächsten Spot finden
         for (int i = 0; i < hitCount; i++)
         {
             float distance = Vector3.Distance(transform.position, hitResults[i].transform.position);
@@ -56,25 +57,23 @@ public class BuiltTower : MonoBehaviour
                 nearestSpot = hitResults[i].gameObject;
             }
         }
-
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, buildRange, buildLayer);
-        bool spotFound = false;
-
-        foreach(var hitCollider in hitColliders)
+        // 3. Logik-Check: Hat sich der gewählte Spot geändert?
+        if (nearestSpot != currentBuildSpot)
         {
-            if (hitCollider.CompareTag("Buildspot"))
+            // Alten Effekt ausschalten
+            //ToggleFeedback(currentBuildSpot, false);
+            currentBuildSpot = nearestSpot;
+
+            // Neuen Effekt einschalten & Button updaten
+            if (currentBuildSpot != null)
             {
-                currentBuildSpot = hitCollider.gameObject;
+                //ToggleFeedback(currentBuildSpot, true);
                 SetButtonState(true, activeColor);
-                spotFound = true;
-                break;
             }
-        }
-
-        if(!spotFound && currentBuildSpot != null)
-        {
-            currentBuildSpot = null;
-            SetButtonState(false, inactiveColor);
+            else
+            {
+                SetButtonState(false, inactiveColor);
+            }
         }
     }
     public void ActivateBuildPanel()
@@ -102,7 +101,7 @@ public class BuiltTower : MonoBehaviour
     }
     public void SpawnTower(GameObject towerPrefab)
     {
-        Instantiate(towerPrefab,currentBuildSpot.transform.position, currentBuildSpot.transform.rotation);
+        Instantiate(towerPrefab,currentBuildSpot.transform.position, towerPrefab.transform.rotation);
 
         currentBuildSpot.SetActive(false);
     }
