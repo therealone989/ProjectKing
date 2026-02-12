@@ -17,6 +17,7 @@ public class AutoAttack : MonoBehaviour
     private readonly List<Enemy> enemiesInRange = new();
     private int lastAttackTime;
 
+
     private void FixedUpdate()
     {
       

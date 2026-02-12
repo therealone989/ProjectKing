@@ -286,9 +286,9 @@ MonoBehaviour:
     m_Bits: 256
   button: {fileID: 0}
   buildPanel: {fileID: 0}
-  canonPrefab: {fileID: 9081953064438461748, guid: b7f4b00f8ea69584db282be228433511, type: 3}
-  archerPrefab: {fileID: 2511486661958984515, guid: 40a159641883ad74b843f13738b31a19, type: 3}
-  wizardPrefab: {fileID: 5327331670188501918, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+  canonPrefab: {fileID: 5725408464701926313, guid: 3252ac308e3c5604ebcad4fc2cf64d1e, type: 3}
+  archerPrefab: {fileID: 7870495232034140022, guid: 40a159641883ad74b843f13738b31a19, type: 3}
+  wizardPrefab: {fileID: 6779061045512448481, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
   troopsPrefab: {fileID: 919132149155446097, guid: 4f2fcb3d84f8be843808f9f649c40d93, type: 3}
 --- !u!114 &8654825588752572341
 MonoBehaviour:

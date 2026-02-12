@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9677b6850fd6ec4bbad1182dfb531f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
-  prefab: {fileID: 2395670834390641356, guid: 560e5d6e8b151f342b8419e7309a51e7, type: 3}
+  prefab: {fileID: 1438550909822507938, guid: 785aa1b40f9b7464aab16ab648237581, type: 3}
   prewarmCount: 30
 --- !u!1 &7057777282655762171
 GameObject:

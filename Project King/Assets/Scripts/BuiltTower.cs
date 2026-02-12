@@ -60,20 +60,9 @@ public class BuiltTower : MonoBehaviour
         // 3. Logik-Check: Hat sich der gewählte Spot geändert?
         if (nearestSpot != currentBuildSpot)
         {
-            // Alten Effekt ausschalten
-            //ToggleFeedback(currentBuildSpot, false);
             currentBuildSpot = nearestSpot;
-
-            // Neuen Effekt einschalten & Button updaten
-            if (currentBuildSpot != null)
-            {
-                //ToggleFeedback(currentBuildSpot, true);
-                SetButtonState(true, activeColor);
-            }
-            else
-            {
-                SetButtonState(false, inactiveColor);
-            }
+            if (currentBuildSpot != null){ SetButtonState(true, activeColor); }
+            else { SetButtonState(false, inactiveColor); }
         }
     }
     public void ActivateBuildPanel()

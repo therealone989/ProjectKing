@@ -24,12 +24,24 @@ public class Turret : MonoBehaviour
     public Transform firePoint;
     private GameObject bullet = null;
 
+
     // Es wird nicht so oft gecheckt - WENIGER RESSOURCEN VERBRAUCHT
     // Distance checks nimmt power
     // 2 mal die sekunde aufgerufen anstatt 60 oder 200
     void Start()
     {
         InvokeRepeating("UpdateTarget", 0f, 0.1f);
+
+        // Wir holen uns den Pool direkt aus der Registry
+        if (PoolRegistry.Instance != null)
+        {
+            bulletPool = PoolRegistry.Instance.CanonBulletPool;
+        }
+        else
+        {
+            Debug.LogError("PoolRegistry nicht in der Szene gefunden!");
+        }
+
     }
 
     void UpdateTarget()
