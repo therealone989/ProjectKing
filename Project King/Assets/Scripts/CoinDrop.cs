@@ -31,6 +31,7 @@ public class CoinDrop : MonoBehaviour
     {
         if (flyingToPlayer)
         {
+            gameObject.GetComponent<Collider>().isTrigger = true;
             Vector3 targetPos = player.transform.position + Vector3.up;
 
             transform.position = Vector3.MoveTowards(
