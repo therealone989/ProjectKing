@@ -2,7 +2,7 @@
 using UnityEngine.Profiling;
 using UnityEngine.UI;
 
-public class BuiltTower : MonoBehaviour
+public class BuildTower : MonoBehaviour
 {
     [Header("SensorSettings")]
     [SerializeField] float buildRange = 7f;
@@ -90,6 +90,12 @@ public class BuiltTower : MonoBehaviour
     }
     public void SpawnTower(GameObject towerPrefab)
     {
+        if (currentBuildSpot == null) return;
+        // 1. Script vom Bauplatz holen
+        BuildSpot spotScript = currentBuildSpot.GetComponent<BuildSpot>();
+        spotScript.PlayBuildEffect(); // Partikel starten
+        spotScript.DisableSpot();
+
         Instantiate(towerPrefab,currentBuildSpot.transform.position, towerPrefab.transform.rotation);
 
         currentBuildSpot.SetActive(false);
