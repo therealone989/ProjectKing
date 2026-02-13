@@ -142,6 +142,17 @@ public class Enemy : MonoBehaviour
     }
     private void SpawnCoins()
     {
+        // Sicherheitscheck: Falls coinPool null ist, hol ihn dir aus der Registry
+        if (coinPool == null)
+        {
+            coinPool = PoolRegistry.Instance.CoinPool;
+        }
+
+        if (coinPool == null)
+        {
+            Debug.LogError("CoinPool konnte auch in der Registry nicht gefunden werden!");
+            return;
+        }
         for (int i = 0; i < coinCount; i++)
         {
             GameObject coinGO = coinPool.GetObject();

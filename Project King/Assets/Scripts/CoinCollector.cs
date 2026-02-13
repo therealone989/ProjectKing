@@ -2,13 +2,10 @@
 
 public class CoinCollector : MonoBehaviour
 {
-    public int collectionRange;
+    public float collectionRange;
     public LayerMask coinMask;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    private Collider[] hitResults = new Collider[20]; // Speicher-Reservierung für NonAlloc
+
 
     // Update is called once per frame
     void Update()
@@ -28,23 +25,27 @@ public void CollectCoin()
         return;
     }
 
-    Collider[] hitColliders = Physics.OverlapSphere(transform.position, collectionRange, coinMask);
+    int hitCounts = Physics.OverlapSphereNonAlloc(transform.position, collectionRange, hitResults, coinMask);
 
-    foreach (var hitCollider in hitColliders)
-    {
-        CoinDrop coin = hitCollider.GetComponentInParent<CoinDrop>();
-        if (coin == null) 
-            continue;
+    for (int i = 0; i < hitCounts; i++)
+        {
+            // Wir holen uns den Collider aus dem aktuellen Index
+            Collider hitCollider = hitResults[i];
 
-        // Schon unterwegs? Dann nicht nochmal zaehlen/triggern
-        if (coin.flyingToPlayer)
-            continue;
+            if (hitCollider == null) continue; // Sicherheits-Check
 
-        coin.flyingToPlayer = true;
-        coin.LocatePlayer(gameObject);
+            CoinDrop coin = hitCollider.GetComponentInParent<CoinDrop>();
+            if (coin == null) continue;
 
-        wallet.Add(1);
-    }
+            // Schon unterwegs? Dann nicht nochmal zaehlen/triggern
+            if (coin.flyingToPlayer)continue;
+
+            coin.LocatePlayer(gameObject);
+            coin.flyingToPlayer = true;
+            
+
+            wallet.Add(1);
+        }
 }
 
 }

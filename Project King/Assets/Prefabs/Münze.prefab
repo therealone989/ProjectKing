@@ -68,8 +68,57 @@ PrefabInstance:
       propertyPath: m_Name
       value: "M\xFCnze"
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9dcc10d227b2a0649aea929c8d453ef2, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9dcc10d227b2a0649aea929c8d453ef2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1379539621418980257}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9dcc10d227b2a0649aea929c8d453ef2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2398813774690012232}
   m_SourcePrefab: {fileID: 100100000, guid: 9dcc10d227b2a0649aea929c8d453ef2, type: 3}
+--- !u!1 &1438550909822507938 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9dcc10d227b2a0649aea929c8d453ef2, type: 3}
+  m_PrefabInstance: {fileID: 2249455378528216819}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1379539621418980257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438550909822507938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b9b4f843e449984b9dd413ddffdc6fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CoinDrop
+  flyingToPlayer: 0
+--- !u!135 &2398813774690012232
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1438550909822507938}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.99999994
+  m_Center: {x: 0, y: 0, z: 0}

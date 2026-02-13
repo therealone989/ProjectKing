@@ -38,7 +38,8 @@ public class CoinDrop : MonoBehaviour
                 targetPos,
                 Time.fixedDeltaTime * 10f
             );
-            if (Vector3.Distance(transform.position, player.transform.position) < 1.2f)
+            Vector3 diff = transform.position - player.transform.position;
+            if (diff.sqrMagnitude < 1.44f)
             {
                 pool.ReturnObject(gameObject);
             }
