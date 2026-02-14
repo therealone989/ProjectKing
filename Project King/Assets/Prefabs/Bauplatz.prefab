@@ -101,11 +101,11 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -6922793697723135513, guid: a637ce83d1e22824abd52c00e583f85b, type: 3}
-  - {fileID: -6478536213147159724, guid: a637ce83d1e22824abd52c00e583f85b, type: 3}
-  - {fileID: -876546973899608171, guid: a637ce83d1e22824abd52c00e583f85b, type: 3}
-  - {fileID: -3846018093981099296, guid: a637ce83d1e22824abd52c00e583f85b, type: 3}
-  - {fileID: 4874126678125670354, guid: a637ce83d1e22824abd52c00e583f85b, type: 3}
+  - {fileID: 2100000, guid: 993a4822d783cb843a8679caf9691821, type: 2}
+  - {fileID: 2100000, guid: 993a4822d783cb843a8679caf9691821, type: 2}
+  - {fileID: 2100000, guid: f03a13c8f2d8f374eaf086b02b3e9d2e, type: 2}
+  - {fileID: 2100000, guid: de13ca3cbc88c264e814b5540c767f42, type: 2}
+  - {fileID: 2100000, guid: 993a4822d783cb843a8679caf9691821, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildSpot
   buildEffect: {fileID: 6855322005045722526}
   meshRenderer: {fileID: 2813960047217374226}
-  buildCollider: {fileID: 5374783527764273724}
+  isOccupied: 0
 --- !u!1 &5572807108668648266
 GameObject:
   m_ObjectHideFlags: 0
