@@ -18,6 +18,7 @@ public class BuildTower : MonoBehaviour
     public Button upgradeButton;
     public GameObject buildPanel;
     public GameObject upgradePanel;
+
     [Header("Tower Prefabs")]
     public GameObject canonPrefab;
     public GameObject archerPrefab;
@@ -88,17 +89,18 @@ public class BuildTower : MonoBehaviour
             return;
         }
 
+        // BuildSpot ist nicht leer = Es ist etwas gebaut :).
         BuildSpot spot = currentBuildSpot.GetComponent<BuildSpot>();
 
-        if (!spot.isOccupied)
-        {
-            SetButtonState(true, activeColor, buildButton);
-            SetButtonState(false, inactiveColor, upgradeButton);
-        }
-        else
+        if (spot.isOccupied)
         {
             SetButtonState(false, inactiveColor, buildButton);
             SetButtonState(true, activeColor, upgradeButton);
+        }
+        else
+        {
+            SetButtonState(true, activeColor, buildButton);
+            SetButtonState(false, inactiveColor, upgradeButton);
         }
     }
 

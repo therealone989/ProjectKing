@@ -5,7 +5,6 @@ public class BuildSpot : MonoBehaviour
 
     [SerializeField] private ParticleSystem buildEffect;
     [SerializeField] private MeshRenderer meshRenderer;
-    [SerializeField] private Collider buildCollider;
     public bool isOccupied = false;
     public void PlayBuildEffect()
     {
