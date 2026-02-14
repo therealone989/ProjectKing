@@ -6,7 +6,7 @@ public class BuildSpot : MonoBehaviour
     [SerializeField] private ParticleSystem buildEffect;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private Collider buildCollider;
-
+    public bool isOccupied = false;
     public void PlayBuildEffect()
     {
         if (buildEffect != null)
@@ -26,6 +26,5 @@ public class BuildSpot : MonoBehaviour
         // Anstatt das ganze Objekt zu deaktivieren, schalten wir nur Sichtbarkeit 
         // und Physik aus. So können Partikel-Kinder zu Ende spielen.
         meshRenderer.enabled = false;
-        buildCollider.enabled = false;
     }
 }
