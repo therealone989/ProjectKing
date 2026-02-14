@@ -37,7 +37,7 @@ public class CoinDrop : MonoBehaviour
             transform.position = Vector3.MoveTowards(
                 transform.position,
                 targetPos,
-                Time.fixedDeltaTime * 10f
+                Time.fixedDeltaTime * 50f
             );
             Vector3 diff = transform.position - player.transform.position;
             if (diff.sqrMagnitude < 1.44f)

@@ -8,4 +8,9 @@ public class PlayerWallet : MonoBehaviour
     {
         Coins += amount;
     }
+
+    public int GetCoins()
+    {
+        return Coins;
+    }
 }

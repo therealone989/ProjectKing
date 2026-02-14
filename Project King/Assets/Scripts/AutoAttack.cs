@@ -10,25 +10,61 @@ public class AutoAttack : MonoBehaviour
     [Header("Attributes")]
     public int damage = 5;
     public int cooldownMs = 500;
+    public float attackRange = 5f;
+    public LayerMask enemyLayer;
 
     [Header("Unity Setup Fields")]
     public Transform shootPoint;
     public GameObject arrowPrefab;
-    private readonly List<Enemy> enemiesInRange = new();
-    private int lastAttackTime;
+
+    private Collider[] hitResults = new Collider[10];
+    private Enemy currentTarget;
+    private float lastAttackTime;
 
 
     private void FixedUpdate()
     {
-      
-        enemiesInRange.RemoveAll(e => e == null || !e.IsAlive);
+        if(Time.frameCount % 5 == 0)
+        {
+            FindTarget();
+        }
 
-        if (enemiesInRange.Count == 0) return;
-        if (Time.time * 1000f - lastAttackTime < cooldownMs) return;
+        if(currentTarget != null && currentTarget.IsAlive)
+        {
+            float distSqr = (currentTarget.transform.position - transform.position).sqrMagnitude;
+            if(distSqr > attackRange * attackRange)
+            {
+                currentTarget = null;
+                return;
+            }
 
-        Enemy target = enemiesInRange[0];
-        Shoot(target);
-        lastAttackTime = (int)(Time.time * 1000f);
+            if(Time.time * 1000f - lastAttackTime >= cooldownMs)
+            {
+                Shoot(currentTarget);
+                lastAttackTime = Time.time * 1000f;
+            }
+
+        }
+    }
+
+    void FindTarget()
+    {
+        int hitCount = Physics.OverlapSphereNonAlloc(transform.position, attackRange, hitResults,enemyLayer);
+
+        if(hitCount > 0)
+        {
+            for (int i = 0; i < hitCount; i++)
+            {
+                Enemy e = hitResults[i].GetComponent<Enemy>();
+                if(e != null && e.IsAlive)
+                {
+                    Debug.Log(e);
+                    currentTarget = e;
+                    return;
+                }
+            }
+        }
+        else { currentTarget = null; }
     }
 
     private void Shoot(Enemy target)
@@ -40,30 +76,7 @@ public class AutoAttack : MonoBehaviour
         bullet.GetComponent<Projectile>().Init(target.GetComponent<Enemy>(), damage, bulletPool);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (!other.CompareTag("Enemy")) return;
-
-        if (other.TryGetComponent(out Enemy e))
-        {
-            if (!enemiesInRange.Contains(e))
-            {
-                e.OnDeath += RemoveEnemy;
-                enemiesInRange.Add(e);
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Enemy")) return;
-
-        if (other.TryGetComponent(out Enemy e))
-        {
-            RemoveEnemy(e);
-        }
-    }
-
+    /*
     private void RemoveEnemy(Enemy e)
     {
         if (e == null) return;
@@ -71,4 +84,5 @@ public class AutoAttack : MonoBehaviour
         e.OnDeath -= RemoveEnemy;
         enemiesInRange.Remove(e);
     }
+    */
 }
