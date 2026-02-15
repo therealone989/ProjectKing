@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 6908600446449171915}
   - component: {fileID: 5221206414991650125}
   - component: {fileID: 8654825588752572341}
+  - component: {fileID: 5140018186457754729}
   m_Layer: 0
   m_Name: King(Player)
   m_TagString: Player
@@ -251,6 +252,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 59661750-ccb1-4519-aa39-ee4e9eaa4558
     m_ActionName: movement/input
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5140018186457754729}
+        m_TargetAssemblyTypeName: PlayerHealth, Assembly-CSharp
+        m_MethodName: InputPlayer
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3a05b420-792c-40a8-934d-c92901c6fd80
+    m_ActionName: 'movement/keydown[/Keyboard/f]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: movement
@@ -373,3 +390,27 @@ MonoBehaviour:
   coinMask:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &5140018186457754729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8501299873675087844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04da1df11b840ac41bd650be85d8eca4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  healthBars:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
