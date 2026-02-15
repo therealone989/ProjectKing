@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: de6bab543951a164b938bf7722f604ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -164,7 +164,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: f03a13c8f2d8f374eaf086b02b3e9d2e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -298,7 +298,7 @@ MonoBehaviour:
   bulletPool: {fileID: 0}
   damage: 5
   cooldownMs: 1000
-  attackRange: 5
+  attackRange: 7
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -330,6 +330,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f683aea2ced66e4bbcdf3e0561d3e17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWallet
+  coinsText: {fileID: 0}
 --- !u!114 &5221206414991650125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,6 +347,8 @@ MonoBehaviour:
   buildLayer:
     serializedVersion: 2
     m_Bits: 256
+  wallet: {fileID: 0}
+  towerCost: 50
   buildButton: {fileID: 0}
   upgradeButton: {fileID: 0}
   buildPanel: {fileID: 0}
