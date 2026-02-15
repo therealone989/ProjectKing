@@ -5,8 +5,12 @@ public class CoinCollector : MonoBehaviour
     public float collectionRange;
     public LayerMask coinMask;
     private Collider[] hitResults = new Collider[20]; // Speicher-Reservierung für NonAlloc
+    PlayerWallet wallet;
 
-
+    private void Awake()
+    {
+        wallet = gameObject.GetComponentInParent<PlayerWallet>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -15,37 +19,35 @@ public class CoinCollector : MonoBehaviour
             CollectCoin();
         }
     }
-public void CollectCoin()
-{
-    // Wallet nur 1x holen
-    PlayerWallet wallet = gameObject.GetComponentInParent<PlayerWallet>();
-    if (wallet == null)
+    public void CollectCoin()
     {
-        Debug.LogError("Keine Playerwallet!");
-        return;
-    }
-
-    int hitCounts = Physics.OverlapSphereNonAlloc(transform.position, collectionRange, hitResults, coinMask);
-
-    for (int i = 0; i < hitCounts; i++)
+        if (wallet == null)
         {
-            // Wir holen uns den Collider aus dem aktuellen Index
-            Collider hitCollider = hitResults[i];
+            Debug.LogError("Keine Playerwallet!");
+            return;
+        }
 
-            if (hitCollider == null) continue; // Sicherheits-Check
+        int hitCounts = Physics.OverlapSphereNonAlloc(transform.position, collectionRange, hitResults, coinMask);
 
-            CoinDrop coin = hitCollider.GetComponentInParent<CoinDrop>();
-            if (coin == null) continue;
+        for (int i = 0; i < hitCounts; i++)
+        {
+                // Wir holen uns den Collider aus dem aktuellen Index
+                Collider hitCollider = hitResults[i];
 
-            // Schon unterwegs? Dann nicht nochmal zaehlen/triggern
-            if (coin.flyingToPlayer)continue;
+                if (hitCollider == null) continue; // Sicherheits-Check
 
-            coin.LocatePlayer(gameObject);
-            coin.flyingToPlayer = true;
+                CoinDrop coin = hitCollider.GetComponentInParent<CoinDrop>();
+                if (coin == null) continue;
+
+                // Schon unterwegs? Dann nicht nochmal zaehlen/triggern
+                if (coin.flyingToPlayer)continue;
+
+                coin.LocatePlayer(gameObject);
+                coin.flyingToPlayer = true;
             
 
-            wallet.Add(1);
+                wallet.Add(1);
         }
-}
+    }
 
 }

@@ -8,6 +8,10 @@ public class BuildTower : MonoBehaviour
     [SerializeField] float buildRange = 7f;
     [SerializeField] LayerMask buildLayer;
 
+    [Header("Economy")]
+    public PlayerWallet wallet;
+    public int towerCost = 50;
+
     [Header("Colors")] 
     Color activeColor = new Color(1.0f,1.0f, 1.0f, 1.0f);
     Color inactiveColor = new Color(1.0f, 1.0f, 1.0f, 0.5f);
@@ -29,6 +33,10 @@ public class BuildTower : MonoBehaviour
     public enum TowerType{Cannon,Archer,Wizard,Troops}
     private Collider[] hitResults = new Collider[5]; // Speicher-Reservierung für NonAlloc
 
+    private void Awake()
+    {
+        wallet = gameObject.GetComponent<PlayerWallet>();
+    }
     void Start()
     {
         SetButtonState(false, inactiveColor, buildButton);
@@ -54,10 +62,10 @@ public class BuildTower : MonoBehaviour
         // 2. Den mathematisch nächsten Spot finden
         for (int i = 0; i < hitCount; i++)
         {
-            float distance = Vector3.Distance(transform.position, hitResults[i].transform.position);
-            if(distance < shortestDistance)
+            float sqrDistance = (hitResults[i].transform.position - transform.position).sqrMagnitude;
+            if (sqrDistance < shortestDistance)
             {
-                shortestDistance = distance;
+                shortestDistance = sqrDistance;
                 nearestSpot = hitResults[i].gameObject;
             }
         }
@@ -127,12 +135,20 @@ public class BuildTower : MonoBehaviour
         if (currentBuildSpot == null) return;
         // 1. Script vom Bauplatz holen
         BuildSpot spotScript = currentBuildSpot.GetComponent<BuildSpot>();
-        spotScript.PlayBuildEffect(); // Partikel starten
-        spotScript.DisableSpot();
         if (spotScript.isOccupied) return;
-        Instantiate(towerPrefab,currentBuildSpot.transform.position, towerPrefab.transform.rotation);
-        spotScript.isOccupied = true;
-        UpdateButtons();
+
+        if(wallet.GetCoins() >= towerCost)
+        {
+            spotScript.PlayBuildEffect(); // Partikel starten
+            spotScript.DisableSpot();
+            Instantiate(towerPrefab,currentBuildSpot.transform.position, towerPrefab.transform.rotation);
+            spotScript.isOccupied = true;
+            UpdateButtons();
+        }else
+        {
+            Debug.Log("Zu wenig Gold!");
+        }
+
     }
     public void ExitMenu()
     {

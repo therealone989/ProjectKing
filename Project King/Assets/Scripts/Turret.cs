@@ -24,6 +24,9 @@ public class Turret : MonoBehaviour
     public Transform firePoint;
     private GameObject bullet = null;
 
+    private Collider[] hitResults = new Collider[20];
+    [SerializeField] private LayerMask enemyLayer;
+
 
     // Es wird nicht so oft gecheckt - WENIGER RESSOURCEN VERBRAUCHT
     // Distance checks nimmt power
@@ -51,38 +54,34 @@ public class Turret : MonoBehaviour
         if(target != null)
         {
             Enemy targetEnemy = target.GetComponent<Enemy>();
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
-
+            // 1. Berechne die quadrierte Distanz (keine Wurzel!)
+            Vector3 offset = target.position - transform.position;
+            float sqrDistance = offset.sqrMagnitude;
             // Wenn das aktuelle Ziel noch lebt und in Reichweite ist: Behalte es!
-            if (targetEnemy != null && targetEnemy.IsAlive && distanceToTarget <= range)
+            if (targetEnemy != null && targetEnemy.IsAlive && sqrDistance <= range * range)
             {
                 return;
             }
         }
 
-        // 2. Nur wenn wir kein Ziel haben (oder das alte weg ist), suchen wir ein neues Ziel.
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        int hitCount = Physics.OverlapSphereNonAlloc(transform.position, range, hitResults, enemyLayer);
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
 
-        foreach (GameObject enemy in enemies)
+        for (int i = 0; i < hitCount; i++)
         {
-            Enemy e = enemy.GetComponent<Enemy>();
+            Enemy e = hitResults[i].GetComponent<Enemy>();
             if (e == null || !e.IsAlive) continue; // Ignoriere tote Gegner im Pool
 
-            float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-            if(distanceToEnemy < shortestDistance)
+            float distanceToEnemy = (hitResults[i].transform.position - transform.position).sqrMagnitude; 
+            if (distanceToEnemy < shortestDistance)
             {
                 shortestDistance = distanceToEnemy;
-                nearestEnemy = enemy;
+                nearestEnemy = hitResults[i].gameObject;
             }
         }
         // Wenn ein gegner in range ist und es der näherste ist und es noch lebt
-        if(nearestEnemy != null && shortestDistance <= range)
-            target = nearestEnemy.transform;
-        // Wenn der gegner null ist
-        else 
-            target = null;
+        target = (nearestEnemy != null) ? nearestEnemy.transform : null;
     }
 
     void Update()

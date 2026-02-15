@@ -585,3 +585,6 @@ MonoBehaviour:
   partToRotate: {fileID: 4474270384401379238}
   turnSpeed: 10
   firePoint: {fileID: 1062095688154359011}
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128

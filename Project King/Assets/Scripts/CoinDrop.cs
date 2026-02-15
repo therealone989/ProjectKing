@@ -31,13 +31,12 @@ public class CoinDrop : MonoBehaviour
     {
         if (flyingToPlayer)
         {
-            gameObject.GetComponent<Collider>().isTrigger = true;
             Vector3 targetPos = player.transform.position + Vector3.up;
 
             transform.position = Vector3.MoveTowards(
                 transform.position,
                 targetPos,
-                Time.fixedDeltaTime * 50f
+                Time.fixedDeltaTime * 30f
             );
             Vector3 diff = transform.position - player.transform.position;
             if (diff.sqrMagnitude < 1.44f)
@@ -59,6 +58,7 @@ public class CoinDrop : MonoBehaviour
     }
     public void LocatePlayer(GameObject go)
     {
+        gameObject.GetComponent<Collider>().isTrigger = true;
         player = go;
     }
 }

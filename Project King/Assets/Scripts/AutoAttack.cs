@@ -58,7 +58,6 @@ public class AutoAttack : MonoBehaviour
                 Enemy e = hitResults[i].GetComponent<Enemy>();
                 if(e != null && e.IsAlive)
                 {
-                    Debug.Log(e);
                     currentTarget = e;
                     return;
                 }
@@ -75,7 +74,11 @@ public class AutoAttack : MonoBehaviour
         bullet.transform.rotation = shootPoint.rotation;
         bullet.GetComponent<Projectile>().Init(target.GetComponent<Enemy>(), damage, bulletPool);
     }
-
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRange);
+    }
     /*
     private void RemoveEnemy(Enemy e)
     {

@@ -83,7 +83,8 @@ public class Enemy : MonoBehaviour
         Vector3 rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.fixedDeltaTime * turnSpeed).eulerAngles;
         transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
-        if (Vector3.Distance(transform.position, currentTarget.position) <= 0.2f)
+        float distSqr = (currentTarget.position - transform.position).sqrMagnitude;
+        if (distSqr <= 0.04f)
         {
             GetNextWaypoint();
         }
