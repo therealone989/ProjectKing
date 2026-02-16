@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 972714560637409770}
   - component: {fileID: 6625220572918942319}
   m_Layer: 0
-  m_Name: Enemy_HealthBarPool
+  m_Name: Enemy_Healthbar_Pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 3304816252738387885}
   - component: {fileID: 1173909847350925855}
   m_Layer: 0
-  m_Name: CanonBulletPool
+  m_Name: Canon_Bullet_Pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,10 +123,11 @@ Transform:
   m_Children:
   - {fileID: 6815771572722772284}
   - {fileID: 3304816252738387885}
-  - {fileID: 6170412824183792332}
   - {fileID: 7487420783978470892}
+  - {fileID: 6170412824183792332}
   - {fileID: 972714560637409770}
   - {fileID: 5414249052402066405}
+  - {fileID: 4808057148713516793}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2067682318409638897
@@ -140,7 +141,7 @@ GameObject:
   - component: {fileID: 6170412824183792332}
   - component: {fileID: 7336301141118273127}
   m_Layer: 0
-  m_Name: CoinPool
+  m_Name: Coin_Pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,7 +187,7 @@ GameObject:
   - component: {fileID: 7487420783978470892}
   - component: {fileID: 247736330780049178}
   m_Layer: 0
-  m_Name: EnemyPool_SLIME
+  m_Name: Slime_Pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,7 +233,7 @@ GameObject:
   - component: {fileID: 5414249052402066405}
   - component: {fileID: 4844902370467408210}
   m_Layer: 0
-  m_Name: Enemy_DeathParticles
+  m_Name: Enemy_Death_Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -267,6 +268,52 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
   prefab: {fileID: 6296031957294918688, guid: d99733e97e26bc94e8640ad8e95c850c, type: 3}
   prewarmCount: 10
+--- !u!1 &7427035398766223924
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4808057148713516793}
+  - component: {fileID: 1200237719711105868}
+  m_Layer: 0
+  m_Name: Canon_Shoot_Particles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4808057148713516793
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7427035398766223924}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4147144817674303572}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1200237719711105868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7427035398766223924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9677b6850fd6ec4bbad1182dfb531f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
+  prefab: {fileID: 2654926887510880933, guid: fcc4a9ee82147ff40b6a7aaeacb281d9, type: 3}
+  prewarmCount: 10
 --- !u!1 &8495243452508763918
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +325,7 @@ GameObject:
   - component: {fileID: 6815771572722772284}
   - component: {fileID: 1924850672075928099}
   m_Layer: 0
-  m_Name: ArrowPool
+  m_Name: Arrow_Pool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

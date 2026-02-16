@@ -3595,6 +3595,7 @@ MonoBehaviour:
   Enemy_SlimePool: {fileID: 1510462724}
   Enemy_HealthbarPool: {fileID: 731549274}
   DeathEffectPool: {fileID: 1118976070}
+  CanonBulletEffectPool: {fileID: 1510071187}
 --- !u!328 &1069374334
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -4919,6 +4920,17 @@ PrefabInstance:
 --- !u!114 &1467216114 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1924850672075928099, guid: 186211ad29bcd36408707c12a9827661, type: 3}
+  m_PrefabInstance: {fileID: 7141882529893230704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9677b6850fd6ec4bbad1182dfb531f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
+--- !u!114 &1510071187 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1200237719711105868, guid: 186211ad29bcd36408707c12a9827661, type: 3}
   m_PrefabInstance: {fileID: 7141882529893230704}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
