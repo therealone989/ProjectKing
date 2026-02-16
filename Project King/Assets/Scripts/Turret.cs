@@ -26,8 +26,8 @@ public class Turret : MonoBehaviour
 
     private Collider[] hitResults = new Collider[20];
     [SerializeField] private LayerMask enemyLayer;
-
-
+    [SerializeField] private Animator animator;
+    public ParticleSystem shootEffect;
     // Es wird nicht so oft gecheckt - WENIGER RESSOURCEN VERBRAUCHT
     // Distance checks nimmt power
     // 2 mal die sekunde aufgerufen anstatt 60 oder 200
@@ -50,7 +50,7 @@ public class Turret : MonoBehaviour
     void UpdateTarget()
     {
 
-        // 1. Wenn wir schon ein Ziel haben, pr¸fen ob es noch valide ist
+        // 1. Wenn wir schon ein Ziel haben, prÅEen ob es noch valide ist
         if(target != null)
         {
             Enemy targetEnemy = target.GetComponent<Enemy>();
@@ -97,19 +97,38 @@ public class Turret : MonoBehaviour
 
         if(fireCountdown <= 0f)
         {
-            Shoot();
+            animator.SetTrigger("Shoot");
             fireCountdown = 1f / fireRate;
         }
         fireCountdown -= Time.deltaTime;
     }
 
-    void Shoot()
+    public void Shoot()
     {
-        bullet = bulletPool.GetObject();
+        // Pool/Firepoint-Absicherung (hilft beim Debuggen)
+        if (bulletPool == null || firePoint == null) return;
+
+        // Target kann inzwischen weg sein -> absichern
+        if (target == null) return;
+
+        Enemy enemy = target.GetComponent<Enemy>();
+        if (enemy == null || !enemy.IsAlive) return;
+
+        if (shootEffect != null)
+            shootEffect.Play();
+
+        GameObject bullet = bulletPool.GetObject();
+        if (bullet == null) return;
+
         bullet.transform.position = firePoint.position;
         bullet.transform.rotation = firePoint.rotation;
-        bullet.GetComponent<Projectile>().Init(target.GetComponent<Enemy>(), damage, bulletPool);
+
+        Projectile proj = bullet.GetComponent<Projectile>();
+        if (proj == null) return;
+
+        proj.Init(enemy, damage, bulletPool);
     }
+
 
     private void OnDrawGizmosSelected()
     {
