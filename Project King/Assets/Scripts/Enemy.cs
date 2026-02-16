@@ -23,7 +23,6 @@ public class Enemy : MonoBehaviour
 
     [Header("Animation control")]
     [SerializeField] private Animator animator;
-    [SerializeField] private float deathDespawnDelay = 1.0f;
     private bool isDying = false;
 
     private FloatingHealthbar healthBar;
@@ -114,6 +113,9 @@ public class Enemy : MonoBehaviour
         if (isDying) return;
         isDying = true;
 
+        // 1. Partikeleffekt aus dem Pool holen und abspielen
+        SpawnDeathEffect();
+
         IsAlive = false;
         isInitialized = false;
 
@@ -128,18 +130,24 @@ public class Enemy : MonoBehaviour
         //enabled = false;
 
         SpawnCoins();
-        StartCoroutine(ReturnAfterDelay());
-    }
-    IEnumerator ReturnAfterDelay()
-    {
-        yield return new WaitForSeconds(deathDespawnDelay);
-
         OnDeath = null;
 
         if (myPool != null)
             myPool.ReturnObject(gameObject);
-        else
-            gameObject.SetActive(false); // Fallback
+    }
+    private void SpawnDeathEffect()
+    {
+        // Hol dir den Pool über deine Registry (wie bei den Coins)
+        ObjectPool effectPool = PoolRegistry.Instance.DeathEffectPool;
+
+        if (effectPool != null)
+        {
+            GameObject effectGO = effectPool.GetObject();
+            effectGO.transform.position = transform.position + Vector3.up * 0.5f;
+
+            EnemyDeathEffect effect = effectGO.GetComponent<EnemyDeathEffect>();
+            effect.Play(effectPool);
+        }
     }
     private void SpawnCoins()
     {

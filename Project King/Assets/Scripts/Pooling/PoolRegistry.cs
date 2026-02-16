@@ -11,7 +11,7 @@ public class PoolRegistry : MonoBehaviour
     public ObjectPool CoinPool;
     public ObjectPool Enemy_SlimePool;
     public ObjectPool Enemy_HealthbarPool;
-
+    public ObjectPool DeathEffectPool;
     private void Awake()
     {
         // Singleton Logik: Es darf nur eine Registry geben

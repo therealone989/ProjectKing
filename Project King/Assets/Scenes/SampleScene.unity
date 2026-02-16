@@ -3594,6 +3594,7 @@ MonoBehaviour:
   CoinPool: {fileID: 252960294}
   Enemy_SlimePool: {fileID: 1510462724}
   Enemy_HealthbarPool: {fileID: 731549274}
+  DeathEffectPool: {fileID: 1118976070}
 --- !u!328 &1069374334
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -3633,6 +3634,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4742437713093952586, guid: 438b23a4b3bdfe945af8490b464210ba, type: 3}
   m_PrefabInstance: {fileID: 894278093}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1118976070 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4844902370467408210, guid: 186211ad29bcd36408707c12a9827661, type: 3}
+  m_PrefabInstance: {fileID: 7141882529893230704}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9677b6850fd6ec4bbad1182dfb531f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPool
 --- !u!4 &1126152662 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5360189804135253955, guid: 757ac269d3ab7c04d87154034460b1da, type: 3}
