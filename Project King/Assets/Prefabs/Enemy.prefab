@@ -163,15 +163,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f9b81a4ec5484a428e7d43cf0c40fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  health: 20
-  maxHealth: 20
+  health: 30
+  maxHealth: 30
   moveSpeed: 6
   turnSpeed: 10
   coinPool: {fileID: 0}
   healthBarPool: {fileID: 0}
   coinCount: 5
   animator: {fileID: 2097722770641760322}
-  deathDespawnDelay: 1.4
 --- !u!65 &6590364027263416702
 BoxCollider:
   m_ObjectHideFlags: 0

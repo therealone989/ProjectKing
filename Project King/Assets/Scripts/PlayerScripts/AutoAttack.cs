@@ -53,15 +53,24 @@ public class AutoAttack : MonoBehaviour
 
         if(hitCount > 0)
         {
+            float shortestDistance = Mathf.Infinity;
+            Enemy nearestEnemy = null;
+
             for (int i = 0; i < hitCount; i++)
             {
                 Enemy e = hitResults[i].GetComponent<Enemy>();
                 if(e != null && e.IsAlive)
                 {
-                    currentTarget = e;
-                    return;
+                    // Wir nehmen die Distanz zum Spieler
+                    float distanceToEnemy = Vector3.Distance(transform.position, e.transform.position);
+                    if (distanceToEnemy < shortestDistance)
+                    {
+                        shortestDistance = distanceToEnemy;
+                        nearestEnemy = e;
+                    }
                 }
             }
+            currentTarget = nearestEnemy;
         }
         else { currentTarget = null; }
     }

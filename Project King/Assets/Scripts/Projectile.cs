@@ -3,18 +3,25 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     ObjectPool pool;
-    ObjectPool particleFlyEffect;
     Enemy target;
     int damage;
     public float speed = 10f;
     bool isInitialized = false;
-
-    public void Init(Enemy e, int dmg, ObjectPool pool,ObjectPool fxPool = null)
+    private TrailRenderer trail;
+    void Awake()
+    {
+        trail = GetComponent<TrailRenderer>();
+    }
+    public void Init(Enemy e, int dmg, ObjectPool pool)
     {
         target = e;
         damage = dmg;
         this.pool = pool;
-        this.particleFlyEffect = fxPool;
+        //Den Trail leeren, bevor der Schuss losfliegt
+        if (trail != null)
+        {
+            trail.Clear();
+        }
         isInitialized = true;
     }
 

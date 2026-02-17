@@ -314,7 +314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AutoAttack
   bulletPool: {fileID: 0}
   damage: 5
-  cooldownMs: 1000
+  cooldownMs: 500
   attackRange: 7
   enemyLayer:
     serializedVersion: 2
@@ -403,7 +403,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   healthBars:
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

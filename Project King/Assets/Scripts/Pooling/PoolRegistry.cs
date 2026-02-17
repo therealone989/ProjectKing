@@ -14,7 +14,6 @@ public class PoolRegistry : MonoBehaviour
 
     [Header("Effect Pools")]
     public ObjectPool DeathEffectPool;
-    public ObjectPool CanonBulletEffectPool;
     private void Awake()
     {
         // Singleton Logik: Es darf nur eine Registry geben
