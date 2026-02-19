@@ -30,8 +30,16 @@ public class PlayerMove : MonoBehaviour
 
         if (dir.sqrMagnitude > 0.0001f)
         {
+            // NUR DREHEN, wenn wir NICHT gerade jemanden angreifen
+            // (Dafür brauchen wir eine Referenz auf AutoAttack oder wir machen es einfach so:)
+            if (GetComponent<AutoAttack>().attackRange == 0 || dir.magnitude > 0.1f)
+            {
+                // Wenn du willst, dass Bewegung immer Vorrang hat, lass es wie es ist.
+                // Wenn der Schuss wichtiger ist, dreht AutoAttack den Charakter.
+            }
+
             Quaternion targetrot = Quaternion.LookRotation(dir);
-            Quaternion smoothRot = Quaternion.Slerp(rb.rotation, targetrot, rotationSpeed * Time.deltaTime);
+            Quaternion smoothRot = Quaternion.Slerp(rb.rotation, targetrot, rotationSpeed * Time.fixedDeltaTime);
             rb.MoveRotation(smoothRot);
         }
     }

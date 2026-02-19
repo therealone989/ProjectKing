@@ -130,6 +130,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1001 &36599009
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6151847503974462299, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 11.058537
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151847503974462299, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151847503974462299, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.754091
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151847503974462299, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151847503974462299, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151847503974462299, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151847503974462299, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151847503974462299, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151847503974462299, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6151847503974462299, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6779061045512448481, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
+      propertyPath: m_Name
+      value: Magierturm
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 68cdf2beff533bd4e8b95be858709ede, type: 3}
 --- !u!1 &60118885
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,8 +797,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30088168, y: 0.000000028358391, z: -0.000000008947115, w: 0.9536615}
-  m_LocalPosition: {x: -14.5, y: 10.87, z: 7.8199997}
+  m_LocalRotation: {x: 0.3303679, y: 0.000000027900677, z: -0.000000009765816, w: 0.9438523}
+  m_LocalPosition: {x: -14.5, y: 21, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1021,7 +1078,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 8235258663d958f44961d3359d775fca, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.212
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2440,8 +2497,8 @@ MonoBehaviour:
   path: {fileID: 203618083}
   waves:
   - enemyType: 0
-    count: 8
-    rate: 1
+    count: 50
+    rate: 10
   - enemyType: 0
     count: 8
     rate: 1
@@ -2451,6 +2508,12 @@ MonoBehaviour:
   - enemyType: 0
     count: 22
     rate: 5
+  - enemyType: 0
+    count: 4
+    rate: 1.2
+  - enemyType: 0
+    count: 4
+    rate: 1.2
   - enemyType: 0
     count: 4
     rate: 1.2
@@ -4519,7 +4582,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 9.87, z: -11.18}
+  FollowOffset: {x: 0, y: 20, z: -20}
 --- !u!114 &2146810520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4571,8 +4634,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2146810517}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.30088162, y: 0.000000028358386, z: -0.000000008947112, w: 0.9536615}
-  m_LocalPosition: {x: -14.5, y: 10.87, z: 7.8199997}
+  m_LocalRotation: {x: 0.33036783, y: 0.00000002790068, z: -0.000000009765832, w: 0.9438523}
+  m_LocalPosition: {x: -14.5, y: 21, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5260,3 +5323,4 @@ SceneRoots:
   - {fileID: 2734852647295839237}
   - {fileID: 1831533984}
   - {fileID: 440642574}
+  - {fileID: 36599009}
