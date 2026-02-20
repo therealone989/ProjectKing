@@ -16,7 +16,11 @@ public class PlayerWallet : MonoBehaviour
         Coins += amount;
         coinsText.text = Coins.ToString();
     }
-
+    public void Subtract(int amount)
+    {
+        Coins -= amount;
+        coinsText.text = Coins.ToString();
+    }
     public int GetCoins()
     {
         return Coins;

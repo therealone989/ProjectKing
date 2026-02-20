@@ -144,11 +144,11 @@ public class BuildTower : MonoBehaviour
             Instantiate(towerPrefab,currentBuildSpot.transform.position, towerPrefab.transform.rotation);
             spotScript.isOccupied = true;
             UpdateButtons();
+            wallet.Subtract(towerCost);
         }else
         {
             Debug.Log("Zu wenig Gold!");
         }
-
     }
     public void ExitMenu()
     {
