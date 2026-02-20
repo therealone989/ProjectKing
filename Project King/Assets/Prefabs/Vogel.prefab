@@ -9,16 +9,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.25105
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000047683716
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.841554
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -48,14 +60,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
       propertyPath: m_Name
+      value: Vogel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
+      propertyPath: m_TagString
       value: Vogel
       objectReference: {fileID: 0}
     - target: {fileID: 8417361359673230750, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8417361359673230750, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 51ba18efa5d72ab40829a184ff1a327e, type: 2}
+    - target: {fileID: 8417361359673230750, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 993a4822d783cb843a8679caf9691821, type: 2}
+    - target: {fileID: 8417361359673230750, guid: efcee45fd8a23e94cb26aab31d5ba53e, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: de6bab543951a164b938bf7722f604ab, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
