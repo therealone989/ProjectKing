@@ -22,7 +22,6 @@ public class Turret : MonoBehaviour
     public float turnSpeed = 10f;
 
     public Transform firePoint;
-    private GameObject bullet = null;
 
     private Collider[] hitResults = new Collider[20];
     [SerializeField] private LayerMask enemyLayer;
