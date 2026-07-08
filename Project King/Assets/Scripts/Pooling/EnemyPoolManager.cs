@@ -6,8 +6,8 @@ public class EnemyPoolManager : MonoBehaviour
     [System.Serializable]
     public class Entry
     {
-        public EnemyType type;
-        public ObjectPool pool;
+        public EnemyType type; // Schluessel
+        public ObjectPool pool; // Value
     }
 
     [SerializeField] private Entry[] pools;

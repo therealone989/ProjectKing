@@ -1,11 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
-using static UnityEngine.AdaptivePerformance.Provider.AdaptivePerformanceSubsystemDescriptor;
 public class WaveSpawner : MonoBehaviour
 {
     [Header("Enemy")]
     [SerializeField] private Transform startPoint;
-    
     [SerializeField] private Path path;
 
     [Header("Waves")]
@@ -39,7 +37,13 @@ public class WaveSpawner : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
-        Debug.Log(waveIndex);
+        if (waveIndex == waves.Length)
+        {
+            // End Level ? Next Scene? TO BE CONTINUED DAMM DAMM 
+            Debug.Log("LEVEL BEENDET lol");
+            this.enabled = false;
+        }
+
         Wave wave = waves[waveIndex];
         for (int i= 0; i< wave.count; i++)
         {
@@ -49,12 +53,7 @@ public class WaveSpawner : MonoBehaviour
         waveIndex++;
         isSpawning = false;
 
-        if (waveIndex == waves.Length)
-        {
-            // End Level ? Next Scene? TO BE CONTINUED DAMM DAMM 
-            Debug.Log("LEVEL BEENDET lol");
-            this.enabled = false;
-        }
+        
     }
 
     void SpawnEnemy(EnemyType type)

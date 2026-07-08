@@ -2580,8 +2580,8 @@ MonoBehaviour:
   path: {fileID: 203618083}
   waves:
   - enemyType: 0
-    count: 50
-    rate: 10
+    count: 5
+    rate: 1
   - enemyType: 0
     count: 8
     rate: 1
@@ -2620,6 +2620,8 @@ MonoBehaviour:
   - type: 0
     pool: {fileID: 1510462724}
   - type: 1
+    pool: {fileID: 1510462724}
+  - type: 2
     pool: {fileID: 1510462724}
 --- !u!114 &1069374332
 MonoBehaviour:
